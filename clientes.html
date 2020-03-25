@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Biblio</title>
+
+    <link rel="stylesheet" href="assets/styles/style.min.css">
+    <link rel="stylesheet" href="assets/fonts/themify-icons/themify-icons.css">
+</head>
+
+<body>
+
+    <div class="main-menu">
+        <header class="header">
+            <a href="home.html" class="logo"><i class="ico ti-book"></i><strong>Biblio</strong></a>
+            <button type="button" class="button-close fa fa-times js__menu_close"></button>
+        </header>
+
+        <div class="content">
+            <div class="navigation">
+                <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo
+                    Usuário!</h5>
+                <h5 class="title">Navegação</h5>
+                <ul class="menu js__accordion">
+                    <li>
+                        <a class="waves-effect" href="autores.html"><i
+                                class="menu-icon ti-user"></i><span>Autores</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="clientes.html"><i
+                                class="menu-icon ti-user"></i><span>Clientes</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="livros.html"><i
+                                class="menu-icon ti-layers-alt"></i><span>Livros</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="estantes.html"><i
+                                class="menu-icon ti-map"></i><span>Estantes</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="prateleiras.html"><i
+                                class="menu-icon ti-map-alt"></i><span>Prateleiras</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-navbar">
+        <div class="pull-right">
+            <div class="ico-item">
+                <i class="ti-user"></i>
+                <ul class="sub-ico-item">
+                    <li><a href="#">Configurações</a></li>
+                    <li><a href="/logout">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div class="main-content">
+
+            <div class="row small-spacing">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="box-content" style="padding: 15px">
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
+                                <h4>Clientes</h4>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                                <button type="button" onclick="adicionar()"
+                                    class="btn btn-primary waves-effect waves-light">Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table id="example" class="table table-small-font table-bordered table-striped"
+                                style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Telefone</th>
+                                        <th>RG</th>
+                                        <th>CPF</th>
+                                        <th>Email</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-sgbds">
+                                    <tr>
+                                        <td>Mateus dos Reis</td>
+                                        <td>016 9 9999-9999</td>
+                                        <td>99.999.999-9</td>
+                                        <td>999.999.999-99</td>
+                                        <td>email@email.com</td>
+                                        <td style="text-align: center">
+                                            <button type="button" class="btn btn-warning waves-effect waves-light"
+                                                onclick="editar(this)">
+                                                <i class="ico ti-pencil-alt"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                                onclick="deletar(this)">
+                                                <i class="ico ti-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mateus dos Reis</td>
+                                        <td>016 9 9999-9999</td>
+                                        <td>99.999.999-9</td>
+                                        <td>999.999.999-99</td>
+                                        <td>email@email.com</td>
+                                        <td style="text-align: center">
+                                            <button type="button" class="btn btn-warning waves-effect waves-light"
+                                                onclick="editar(this)">
+                                                <i class="ico ti-pencil-alt"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                                onclick="deletar(this)">
+                                                <i class="ico ti-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="frm-footer text-center">Cocão Sistemas ©
+                    <script>var date = new Date(); document.write(date.getFullYear());</script>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar -->
+    <div class="modal fade" id="modal-cadastrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Cliente</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card-content">
+                        <form action="#" method="POST" class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="nome" class="col-sm-4 control-label">Nome</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="nome" name="nome"
+                                        placeholder="Nome" autofocus required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telefone" class="col-sm-4 control-label">Telefone</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="telefone" name="telefone"
+                                        placeholder="Telefone" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rg" class="col-sm-4 control-label">RG</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="rg" name="rg"
+                                        placeholder="RG" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cpf" class="col-sm-4 control-label">CPF</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="cpf" name="cpf"
+                                        placeholder="CPF" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group margin-bottom-0">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit"
+                                        class="btn btn-info btn-sm waves-effect waves-light">Cadastrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar-->
+    <div class="modal fade" id="modal-editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Alteração de Prateleira</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card-content">
+                        <form action="#" method="POST" class="form-horizontal">
+                            <input type="hidden" name="id" id="eid">
+
+                            <div class="form-group">
+                                <label for="numero" class="col-sm-4 control-label">Número</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="enumero" name="numero"
+                                        placeholder="Número" autofocus required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="posicao" class="col-sm-4 control-label">Posição</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="eposicao" name="posicao"
+                                        placeholder="Posição" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group margin-bottom-0">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit"
+                                        class="btn btn-info btn-sm waves-effect waves-light">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Remover -->
+    <div class="modal fade" id="modal-deletar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">Remoção de Prateleira</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card-content">
+                        <form action="#" method="POST" class="form-horizontal">
+                            <input type="hidden" name="id" id="did">
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    Deseja remover esta prateleira?
+                                </label>
+                            </div>
+                            <div class="form-group margin-bottom-0">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit"
+                                        class="btn btn-danger btn-sm waves-effect waves-light">Remover</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/modernizr.min.js"></script>
+    <script src="assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugin/nprogress/nprogress.js"></script>
+
+    <script src="assets/scripts/main.min.js"></script>
+
+    <script>
+        function adicionar() {
+            $('#modal-cadastrar').modal('show');
+        }
+
+        function editar(element) {
+            // var id = $(element).data('id');
+            // var prateleiras = JSON.parse($("#prateleiras").val());
+            // var ps = prateleiras[prateleiras.findIndex(obj => obj.idtbl_sgbd == id)];
+
+            // $("#eid").val(id);
+            // $("#ebanco").val(ss.banco);
+            // $("#edriver").val(ss.driver);
+
+            $("#modal-editar").modal('show');
+        }
+        function deletar(element) {
+            // var id = $(element).data('id');
+            // var sgbds = JSON.parse($("#sgbds").val());
+            // var ss = sgbds[sgbds.findIndex(obj => obj.id == id)];
+            // $("#did").val(id);
+            $("#modal-deletar").modal('show');
+        }
+    </script>
+</body>
+
+</html>
