@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Biblio</title>
+
+    <link rel="stylesheet" href="assets/styles/style.min.css">
+    <link rel="stylesheet" href="assets/fonts/themify-icons/themify-icons.css">
+</head>
+
+<body>
+
+    <div class="main-menu">
+        <header class="header">
+            <a href="home.html" class="logo"><i class="ico ti-book"></i><strong>Biblio</strong></a>
+            <button type="button" class="button-close fa fa-times js__menu_close"></button>
+        </header>
+
+        <div class="content">
+            <div class="navigation">
+                <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo Usuário!</h5>
+                <h5 class="title">Navegação</h5>
+                <ul class="menu js__accordion">
+                    <li>
+                        <a class="waves-effect" href="autores.html"><i class="menu-icon ti-user"></i><span>Autores</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="livros.html"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="estantes.html"><i class="menu-icon ti-map"></i><span>Estantes</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="prateleiras.html"><i class="menu-icon ti-map-alt"></i><span>Prateleira</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-navbar">
+        <div class="pull-right">
+            <div class="ico-item">
+                <i class="ti-user"></i>
+                <ul class="sub-ico-item">
+                    <li><a href="#">Configurações</a></li>
+                    <li><a href="/logout">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div class="main-content">
+
+            <div class="row small-spacing">
+                <div class="col-lg-6 col-md-6 col-sm-5 col-xs-5">
+                    <div class="box-content">
+                        <div class="statistics-box">
+                            <p class="text">Livros</p>
+                            <h2 class="counter">80k</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-7 col-xs-7">
+                    <div class="box-content">
+                        <div class="statistics-box">
+                            <p class="text">Usuários</p>
+                            <h2 class="counter">200</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row small-spacing">
+                <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div class="box-content">
+                        <h4 class="box-title">Livros por Categoria</h4>
+                        <div id="livros-categoria"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div class="box-content">
+                        <h4 class="box-title">Livros por Status</h4>
+                        <div id="livros-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="frm-footer text-center">Cocão Sistemas ©
+                    <script>var date = new Date(); document.write(date.getFullYear());</script>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/scripts/highcharts.js"></script>
+
+    <script>
+        Highcharts.chart('livros-categoria', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 60
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%'
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['Chrome', 58.9],
+                    ['Firefox', 13.29],
+                    ['Internet Explorer', 13],
+                    ['Edge', 3.78],
+                    ['Safari', 3.42],
+                    {
+                        name: 'Other',
+                        y: 7.61,
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                ]
+            }]
+        });
+
+        Highcharts.chart('livros-status', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 60
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%'
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['Chrome', 58.9],
+                    ['Firefox', 13.29],
+                    ['Internet Explorer', 13],
+                    ['Edge', 3.78],
+                    ['Safari', 3.42],
+                    {
+                        name: 'Other',
+                        y: 7.61,
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                ]
+            }]
+        });
+    </script>
+</body>
+
+</html>
