@@ -23,7 +23,7 @@
 
     <div class="main-menu">
         <header class="header">
-            <a href="/inicio" class="logo"><i class="ico ti-stats-up"></i><strong>Biblio</strong></a>
+            <a href="/inicio" class="logo"><i class="ico ti-book"></i><strong>Biblio</strong></a>
             <button type="button" class="button-close fa fa-times js__menu_close"></button>
         </header>
 
@@ -33,19 +33,19 @@
                 <h5 class="title">Navegação</h5>
                 <ul class="menu js__accordion">
                     <li>
-                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Autores</span></a>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-user"></i><span>Autores</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Editoras</span></a>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-write"></i><span>Editoras</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Livros</span></a>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Estantes</span></a>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-map"></i><span>Estantes</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Prateleira</span></a>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-map-alt"></i><span>Prateleira</span></a>
                     </li>
                 </ul>
             </div>
@@ -69,10 +69,42 @@
     <div id="wrapper">
         <div class="main-content">
 
+            <div class="row small-spacing">
+                <div class="col-lg-6 col-md-6 col-sm-5 col-xs-5">
+                    <div class="box-content">
+                        <div class="statistics-box">
+                            <p class="text">Vendas R$</p>
+                            <h2 class="counter">80k</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-7 col-xs-7">
+                    <div class="box-content">
+                        <div class="statistics-box">
+                            <p class="text">Contas a Receber R$</p>
+                            <h2 class="counter">120k</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
+            <div class="row small-spacing">
+                <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div class="box-content">
+                        <h4 class="box-title">Livros por Categoria</h4>
+                        <div id="livros-categoria"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div class="box-content">
+                        <h4 class="box-title">Livros por Status</h4>
+                        <div id="livros-status"></div>
+                    </div>
+                </div>
+            </div>
 
             <footer class="footer">
-                <div class="frm-footer text-center">GRT Soluções ©
+                <div class="frm-footer text-center">Cocão Sistemas ©
                     <script>var date = new Date(); document.write(date.getFullYear());</script>
                 </div>
             </footer>
@@ -101,55 +133,124 @@
 
     <script src="assets/scripts/sweetalert.init.js"></script>
 
+    <script src="assets/scripts/highcharts.js"></script>
+
     <script src="assets/scripts/main.min.js"></script>
 
     <script>
-        function remDays(date, days) {
-            var result = new Date(date);
-            result.setDate(result.getDate() - days);
-            return result.toLocaleDateString();
-        }
-        $('#datepicker-de').datepicker({
-            date: remDays(new Date(), 7),
-            language: 'pt-BR',
-            format: 'dd/mm/yyyy',
-            autoHide: true,
+        Highcharts.chart('livros-categoria', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 60
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%'
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['Chrome', 58.9],
+                    ['Firefox', 13.29],
+                    ['Internet Explorer', 13],
+                    ['Edge', 3.78],
+                    ['Safari', 3.42],
+                    {
+                        name: 'Other',
+                        y: 7.61,
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                ]
+            }]
         });
-        $('#datepicker-ate').datepicker({
-            date: new Date().toLocaleDateString(),
-            language: 'pt-BR',
-            format: 'dd/mm/yyyy',
-            autoHide: true,
+
+        Highcharts.chart('livros-status', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 60
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%'
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['Chrome', 58.9],
+                    ['Firefox', 13.29],
+                    ['Internet Explorer', 13],
+                    ['Edge', 3.78],
+                    ['Safari', 3.42],
+                    {
+                        name: 'Other',
+                        y: 7.61,
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                ]
+            }]
         });
-
-        $('#datepicker-de').val(remDays(new Date(), 7));
-        $('#datepicker-ate').val(new Date().toLocaleDateString());
-
-        function setSelected(element) {
-            $(".bg-warning").children().children().removeClass('text-white');
-            $(".bg-warning").removeClass('bg-warning text-white');
-            $(element).addClass('bg-warning text-white');
-            $(element).children().children().addClass('text-white');
-        }
-
-        function formataData(data) {
-            var nd = data.split('/');
-            return nd[0] + "-" + nd[1] + "-" + nd[2];
-        }
-
-
-        $("#btn-search").click(function () {
-            var dataInicio = formataData($("#datepicker-de").val());
-            var dataFim = formataData($("#datepicker-ate").val());
-
-            //realiza ajax para buscar os dados pela data
-        });
-
-        function closeModal() {
-            document.querySelector(".modalAlertOpacity").style.display = 'none';
-            document.querySelector(".modalAlert").style.display = 'none';
-        }
-
     </script>
 </body>
 
