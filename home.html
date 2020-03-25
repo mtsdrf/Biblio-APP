@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Biblio</title>
+
+    <link rel="stylesheet" href="assets/styles/style.min.css">
+    <link rel="stylesheet" href="assets/fonts/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="assets/plugin/waves/waves.min.css">
+    <link rel="stylesheet" href="assets/plugin/sweet-alert/sweetalert.css">
+
+    <link rel="stylesheet" href="assets/plugin/form-wizard/prettify.css">
+</head>
+
+<body>
+
+    <div class="main-menu">
+        <header class="header">
+            <a href="/inicio" class="logo"><i class="ico ti-stats-up"></i><strong>Biblio</strong></a>
+            <button type="button" class="button-close fa fa-times js__menu_close"></button>
+        </header>
+
+        <div class="content">
+            <div class="navigation">
+                <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo Usuário!</h5>
+                <h5 class="title">Navegação</h5>
+                <ul class="menu js__accordion">
+                    <li>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Autores</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Editoras</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Livros</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Estantes</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="#"><i class="menu-icon ti-money"></i><span>Prateleira</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-navbar">
+        <div class="pull-left">
+            <h1 class="page-title">Início</h1>
+        </div>
+        <div class="pull-right">
+            <div class="ico-item">
+                <i class="ti-user"></i>
+                <ul class="sub-ico-item">
+                    <li><a href="#">Configurações</a></li>
+                    <li><a href="/logout">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div class="main-content">
+
+            
+
+            <footer class="footer">
+                <div class="frm-footer text-center">GRT Soluções ©
+                    <script>var date = new Date(); document.write(date.getFullYear());</script>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/modernizr.min.js"></script>
+    <script src="assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/plugin/nprogress/nprogress.js"></script>
+    <script src="assets/plugin/sweet-alert/sweetalert.min.js"></script>
+    <script src="assets/plugin/waves/waves.min.js"></script>
+
+    <!-- Datepicker -->
+    <script src="assets/datepicker/datepicker.min.js"></script>
+    <script src="assets/datepicker/datepicker.pt-BR.js"></script>
+
+    <!-- Sparkline Chart -->
+    <script src="assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
+    <script src="assets/scripts/chart.sparkline.init.min.js"></script>
+
+    <script src="assets/plugin/form-wizard/prettify.js"></script>
+    <script src="assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="assets/plugin/jquery-validation/jquery.validate.min.js"></script>
+    <script src="assets/scripts/form.wizard.init.min.js"></script>
+
+    <script src="assets/scripts/sweetalert.init.js"></script>
+
+    <script src="assets/scripts/main.min.js"></script>
+
+    <script>
+        function remDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() - days);
+            return result.toLocaleDateString();
+        }
+        $('#datepicker-de').datepicker({
+            date: remDays(new Date(), 7),
+            language: 'pt-BR',
+            format: 'dd/mm/yyyy',
+            autoHide: true,
+        });
+        $('#datepicker-ate').datepicker({
+            date: new Date().toLocaleDateString(),
+            language: 'pt-BR',
+            format: 'dd/mm/yyyy',
+            autoHide: true,
+        });
+
+        $('#datepicker-de').val(remDays(new Date(), 7));
+        $('#datepicker-ate').val(new Date().toLocaleDateString());
+
+        function setSelected(element) {
+            $(".bg-warning").children().children().removeClass('text-white');
+            $(".bg-warning").removeClass('bg-warning text-white');
+            $(element).addClass('bg-warning text-white');
+            $(element).children().children().addClass('text-white');
+        }
+
+        function formataData(data) {
+            var nd = data.split('/');
+            return nd[0] + "-" + nd[1] + "-" + nd[2];
+        }
+
+
+        $("#btn-search").click(function () {
+            var dataInicio = formataData($("#datepicker-de").val());
+            var dataFim = formataData($("#datepicker-ate").val());
+
+            //realiza ajax para buscar os dados pela data
+        });
+
+        function closeModal() {
+            document.querySelector(".modalAlertOpacity").style.display = 'none';
+            document.querySelector(".modalAlert").style.display = 'none';
+        }
+
+    </script>
+</body>
+
+</html>
