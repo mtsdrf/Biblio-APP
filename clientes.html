@@ -28,25 +28,23 @@
                     Usuário!</h5>
                 <h5 class="title">Navegação</h5>
                 <ul class="menu js__accordion">
-                    <li>
-                        <a class="waves-effect" href="autores.html"><i
-                                class="menu-icon ti-user"></i><span>Autores</span></a>
+                    <!-- <li>
+                        <a class="waves-effect" href="autores.html"><i class="menu-icon ti-user"></i><span>Autores</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="clientes.html"><i
-                                class="menu-icon ti-user"></i><span>Clientes</span></a>
+                        <a class="waves-effect" href="clientes.html"><i class="menu-icon ti-user"></i><span>Clientes</span></a>
+                    </li> -->
+                    <li>
+                        <a class="waves-effect" href="livros.html"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="livros.html"><i
-                                class="menu-icon ti-layers-alt"></i><span>Livros</span></a>
+                        <a class="waves-effect" href="estantes.html"><i class="menu-icon ti-map"></i><span>Estantes</span></a>
                     </li>
+                    <!-- <li>
+                        <a class="waves-effect" href="prateleiras.html"><i class="menu-icon ti-map-alt"></i><span>Prateleiras</span></a>
+                    </li> -->
                     <li>
-                        <a class="waves-effect" href="estantes.html"><i
-                                class="menu-icon ti-map"></i><span>Estantes</span></a>
-                    </li>
-                    <li>
-                        <a class="waves-effect" href="prateleiras.html"><i
-                                class="menu-icon ti-map-alt"></i><span>Prateleiras</span></a>
+                        <a class="waves-effect" href="usuarios.html"><i class="menu-icon ti-user"></i><span>Usuários</span></a>
                     </li>
                 </ul>
             </div>
@@ -215,7 +213,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Alteração de Prateleira</h4>
+                    <h4 class="modal-title" id="myModalLabel">Alteração de Cliente</h4>
                 </div>
                 <div class="modal-body">
                     <div class="card-content">
@@ -223,18 +221,37 @@
                             <input type="hidden" name="id" id="eid">
 
                             <div class="form-group">
-                                <label for="numero" class="col-sm-4 control-label">Número</label>
+                                <label for="nome" class="col-sm-4 control-label">Nome</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="enumero" name="numero"
-                                        placeholder="Número" autofocus required>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" autofocus required>
                                 </div>
                             </div>
-
+                            
                             <div class="form-group">
-                                <label for="posicao" class="col-sm-4 control-label">Posição</label>
+                                <label for="telefone" class="col-sm-4 control-label">Telefone</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="eposicao" name="posicao"
-                                        placeholder="Posição" required>
+                                    <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rg" class="col-sm-4 control-label">RG</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="rg" name="rg" placeholder="RG" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cpf" class="col-sm-4 control-label">CPF</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                 </div>
                             </div>
 
@@ -258,7 +275,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">Remoção de Prateleira</h4>
+                    <h4 class="modal-title text-center" id="myModalLabel">Remoção de Cliente</h4>
                 </div>
                 <div class="modal-body">
                     <div class="card-content">
@@ -266,7 +283,7 @@
                             <input type="hidden" name="id" id="did">
                             <div class="form-group">
                                 <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    Deseja remover esta prateleira?
+                                    Deseja remover este cliente?
                                 </label>
                             </div>
                             <div class="form-group margin-bottom-0">
