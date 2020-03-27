@@ -55,7 +55,7 @@
                 axios.post('http://localhost:8000/api/login', this.formdata )
                     .then(res => {
                         sessionStorage.setItem('token', res.data.access_token);
-                        alert("token: " + res.data.access_token);
+                        this.$router.replace('/home');
                     })
                     .catch(err => {
                         alert("erro: " + err);
@@ -66,8 +66,5 @@
 </script>
 
 <style>
-    @import '../assets/css/fonts/font-awesome/css/font-awesome.min.css';
-    @import '../assets/css/bootstrap.min.css';
-    @import '../assets/css/nprogress.css';
-    @import '../assets/css/style.min.css';
+
 </style>
