@@ -37,9 +37,9 @@
         </div>
 
         <div class="fixed-navbar">
-            <div class="pull-left">
+            <!--<div class="pull-left">
                 <button type="button" style="background-color: #008629;" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
-            </div>
+            </div>-->
             <div class="pull-right">
                 <div class="ico-item">
                     <i class="ti-user"></i>
@@ -84,5 +84,6 @@ export default {
     @import '../assets/css/bootstrap.min.css';
     @import '../assets/css/nprogress.css';
     @import '../assets/css/style.min.css';
+    @import '../assets/css/fonts/themify/themify-icons.css';
 
 </style>
