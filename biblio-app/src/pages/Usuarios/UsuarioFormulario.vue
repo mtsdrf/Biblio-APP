@@ -82,8 +82,12 @@
         },
         methods: {
             adicionar: function () {
-                axios.post('http://localhost:8000/api/user', this.formdata )
-                    .then(res => {
+                axios.post('http://localhost:8000/api/user', this.formdata, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then(res => {
                         console.log("then: "+res);
                     })
                     .catch(err => {
