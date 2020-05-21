@@ -9,7 +9,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <form>
+                        <form @submit.prevent="adicionar">
                             <div class="col-md-9">
                                 <label for="name" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                 <div class="controls">
@@ -55,7 +55,7 @@
                             
                             <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
                                 <div class="controls">
-                                    <button v-on:click="adicionar" class="btn btn-info btn-sm waves-effect waves-light">Cadastrar</button>
+                                    <button class="btn btn-info btn-sm waves-effect waves-light">Cadastrar</button>
                                 </div>
                             </div>
                         </form>
@@ -88,10 +88,11 @@
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(res => {
-                        console.log("then: "+res);
+                    console.log("deu bom: "+res);
+                        this.$router.replace('/usuarios');
                     })
                     .catch(err => {
-                        console.log("catch: "+err);
+                        alert("não funciona seu merda: "+err);
                     })
             }
         }
