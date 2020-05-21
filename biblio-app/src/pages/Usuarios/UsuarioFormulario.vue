@@ -9,7 +9,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <form @submit.prevent="adicionar">
+                        <form>
                             <div class="col-md-9">
                                 <label for="name" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                 <div class="controls">
