@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
 
-import './assets/js/highcharts';
+// import './assets/js/highcharts';
 
 import App from "./App.vue";
 

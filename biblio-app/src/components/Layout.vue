@@ -23,13 +23,13 @@
                             <router-link to='/livros'><a class="waves-effect"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a></router-link>
                         </li>
                         <li>
-                            <router-link to='/estantes'><a class="waves-effect" href="estantes.html"><i class="menu-icon ti-map"></i><span>Estantes</span></a></router-link>
+                            <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-map"></i><span>Estantes</span></a></router-link>
                         </li>
                         <!-- <li>
                             <a class="waves-effect" href="prateleiras.html"><i class="menu-icon ti-map-alt"></i><span>Prateleiras</span></a>
                         </li> -->
                         <li>
-                            <router-link to='/usuarios'><a class="waves-effect" href="usuarios.html"><i class="menu-icon ti-user"></i><span>Usuários</span></a></router-link>
+                            <router-link to='/usuarios'><a class="waves-effect"><i class="menu-icon ti-user"></i><span>Usuários</span></a></router-link>
                         </li>
                     </ul>
                 </div>
