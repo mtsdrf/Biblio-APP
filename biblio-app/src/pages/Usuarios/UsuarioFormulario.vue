@@ -56,6 +56,8 @@
                             <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
                                 <div class="controls">
                                     <button class="btn btn-info btn-sm waves-effect waves-light">Cadastrar</button>
+                                    
+                                    <router-link to='/usuarios'><button style="margin-left:20px" class="btn btn-warning btn-sm waves-effect waves-light">Voltar</button></router-link>
                                 </div>
                             </div>
                         </form>
@@ -88,7 +90,7 @@
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(res => {
-                    console.log("deu bom: "+res);
+                        console.log("deu bom: "+res);
                         this.$router.replace('/usuarios');
                     })
                     .catch(err => {

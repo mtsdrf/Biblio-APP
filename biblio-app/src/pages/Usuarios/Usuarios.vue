@@ -8,8 +8,7 @@
                             <h4>Usuários</h4>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                            <button type="button" onclick="adicionar()"
-                                class="btn btn-primary waves-effect waves-light">Adicionar</button>
+                            <router-link to='/usuario-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                         </div>
                     </div>
                     <div class="table-responsive" data-pattern="priority-columns">
