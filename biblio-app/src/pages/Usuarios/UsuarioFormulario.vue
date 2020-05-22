@@ -90,10 +90,12 @@
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(res => {
+                        console.log(res);
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/usuarios');
                     })
                     .catch(err => {
+                        console.log(err);
                         alert("Falha ao realizar o cadastro.");
                     })
             }
