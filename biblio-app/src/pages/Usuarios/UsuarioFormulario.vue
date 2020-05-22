@@ -106,7 +106,7 @@
         },
         methods: {
             adicionar: function () {
-                if(this.$route.params.id === undefined && this.$route.params.id === null){
+                if(this.$route.params.id === undefined || this.$route.params.id === null){
                     axios.post('http://localhost:8000/api/user', this.formdata, {
                         headers: {
                             'Content-Type': 'application/json',
