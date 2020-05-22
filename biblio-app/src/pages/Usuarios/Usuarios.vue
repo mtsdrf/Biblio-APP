@@ -19,42 +19,19 @@
                                     <th>Nome</th>
                                     <th>CPF</th>
                                     <th>RG</th>
-                                    <th>Data de Nascimento</th>
-                                    <th>Email</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-sgbds">
-                                <tr>
-                                    <td>Mateus dos Reis</td>
-                                    <td>999.999.999-99</td>
-                                    <td>99.999.999-9</td>
-                                    <td>18/12/2000</td>
-                                    <td>email@email.com</td>
+                            <tbody>
+                                <tr v-for="usuario in usuarios" :key="usuario.id">
+                                    <td>{{ usuario.name }}</td>
+                                    <td>{{ usuario.cpf }}</td>
+                                    <td>{{ usuario.rg }}</td>
                                     <td style="text-align: center">
-                                        <button type="button" class="btn btn-warning waves-effect waves-light"
-                                            onclick="editar(this)">
+                                        <button type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                             <i class="ico ti-pencil-alt"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger waves-effect waves-light"
-                                            onclick="deletar(this)">
-                                            <i class="ico ti-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Mateus dos Reis</td>
-                                    <td>999.999.999-99</td>
-                                    <td>99.999.999-9</td>
-                                    <td>18/12/2000</td>
-                                    <td>email@email.com</td>
-                                    <td style="text-align: center">
-                                        <button type="button" class="btn btn-warning waves-effect waves-light"
-                                            onclick="editar(this)">
-                                            <i class="ico ti-pencil-alt"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger waves-effect waves-light"
-                                            onclick="deletar(this)">
+                                        <button type="button" class="btn btn-danger waves-effect waves-light">
                                             <i class="ico ti-trash"></i>
                                         </button>
                                     </td>
@@ -70,11 +47,32 @@
 
 <script>
     import Layout from '@/components/Layout';
+    import axios from 'axios'
 
     export default {
         name: 'Usuarios',
         components: {
             Layout
-        }
+        },
+        data () {
+            return {
+                usuarios: []
+            }
+        },
+        mounted() {
+            axios.get("http://localhost:8000/api/user", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then(res => {
+                console.log(res);
+                this.usuarios = res.data;
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Falha ao realizar a busca dos usuários.");
+            });
+        },
     }
 </script>
