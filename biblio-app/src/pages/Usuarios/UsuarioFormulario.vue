@@ -55,7 +55,7 @@
                             
                             <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
                                 <div class="controls">
-                                    <button class="btn btn-info btn-sm waves-effect waves-light">Cadastrar</button>
+                                    <button class="btn btn-info btn-sm waves-effect waves-light">{{ this.$route.params.id !== undefined && this.$route.params.id !== null ? "Salvar" : "Cadastrar" }}</button>
                                     
                                     <router-link to='/usuarios'><button style="margin-left:20px" class="btn btn-warning btn-sm waves-effect waves-light">Voltar</button></router-link>
                                 </div>
@@ -82,22 +82,61 @@
                 formdata:{ name: '', cpf: '', rg: '', data_nascimento: '', endereco: '', email: '', password: '' }
             }
         },
-        methods: {
-            adicionar: function () {
-                axios.post('http://localhost:8000/api/user', this.formdata, {
+        beforeCreate() {
+            if(this.$route.params.id !== undefined && this.$route.params.id !== null){
+                axios.get("http://localhost:8000/api/user/" + this.$route.params.id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(res => {
-                    console.log(res);
-                    alert("Cadastro realizado com sucesso.");
-                    this.$router.replace('/usuarios');
+                    this.formdata.name = res.data.name;
+                    this.formdata.cpf = res.data.cpf;
+                    this.formdata.rg = res.data.rg;
+                    this.formdata.data_nascimento = res.data.data_nascimento;
+                    this.formdata.endereco = res.data.endereco;
+                    this.formdata.email = res.data.email;
+                    this.formdata.password = res.data.password;
                 })
                 .catch(err => {
                     console.log(err);
-                    alert("Falha ao realizar o cadastro.");
+                    alert("Falha ao realizar a busca dos usuários.");
                 });
+            }
+        },
+        methods: {
+            adicionar: function () {
+                if(this.$route.params.id === undefined && this.$route.params.id === null){
+                    axios.post('http://localhost:8000/api/user', this.formdata, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    }).then(res => {
+                        console.log(res);
+                        alert("Cadastro realizado com sucesso.");
+                        this.$router.replace('/usuarios');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert("Falha ao realizar o cadastro.");
+                    });
+                } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
+                    axios.put('http://localhost:8000/api/user/' + this.$route.params.id, this.formdata, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    }).then(res => {
+                        console.log(res);
+                        alert("Alteração realizada com sucesso.");
+                        this.$router.replace('/usuarios');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert("Falha ao realizar a alteração dos dados.");
+                    });
+                }
             }
         }
     }

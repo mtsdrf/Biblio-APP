@@ -28,7 +28,7 @@
                                     <td>{{ usuario.cpf }}</td>
                                     <td>{{ usuario.rg }}</td>
                                     <td style="text-align: center">
-                                        <button type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                        <button v-on:click="editar(usuario.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                             <i class="ico ti-pencil-alt"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger waves-effect waves-light">
@@ -59,7 +59,7 @@
                 usuarios: []
             }
         },
-        mounted() {
+        beforeCreate() {
             axios.get("http://localhost:8000/api/user", {
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,5 +74,10 @@
                 alert("Falha ao realizar a busca dos usuários.");
             });
         },
+        methods: {
+            editar: function(id) {
+                this.$router.replace('/usuario-formulario/' + id);
+            }
+        }
     }
 </script>
