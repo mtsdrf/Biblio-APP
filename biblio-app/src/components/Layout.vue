@@ -45,7 +45,7 @@
                     <i class="ti-user"></i>
                     <ul class="sub-ico-item">
                         <li><a href="#">Configurações</a></li>
-                        <li><a href="/logout">Sair</a></li>
+                        <li><a v-on:click="logout()">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -74,6 +74,12 @@ Vue.use(Plugin);
 
 export default {
     name: 'Layout',
+    methods: {
+        logout() {
+            sessionStorage.clear();
+            this.$router.replace('/');
+        }
+    }
 }
 
 </script>

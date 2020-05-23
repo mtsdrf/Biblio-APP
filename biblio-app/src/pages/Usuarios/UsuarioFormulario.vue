@@ -116,8 +116,7 @@
                         console.log(res);
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/usuarios');
-                    })
-                    .catch(err => {
+                    }).catch(err => {
                         console.log(err);
                         alert("Falha ao realizar o cadastro.");
                     });
