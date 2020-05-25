@@ -87,8 +87,7 @@
                     this.formdata.email= res.data.email;
                     this.formdata.endereco = res.data.endereco;
                 })
-                .catch(err => {
-                    console.log(err);
+                .catch(() => {
                     alert("Falha ao realizar a busca de clientes 2 .");
                 });
             }
@@ -101,13 +100,11 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
-                        console.log(res);
+                    }).then(() => {
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/clientes');
                     })
-                    .catch(err => {
-                        console.log(err);
+                    .catch(() => {
                         alert("Falha ao realizar o cadastro.");
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
@@ -116,13 +113,11 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
-                        console.log(res);
+                    }).then(() => {
                         alert("Alteração realizada com sucesso.");
                         this.$router.replace('/clientes');
                     })
-                    .catch(err => {
-                        console.log(err);
+                    .catch(() => {
                         alert("Falha ao realizar a alteração dos dados.");
                     });
                 }

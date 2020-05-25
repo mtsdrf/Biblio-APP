@@ -13,9 +13,9 @@
                     <div class="form-group row">
                         <form @submit.prevent="adicionar">
                             <div class="col-md-9">
-                                <label for="name" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
+                                <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                 <div class="controls">
-                                    <input type="text" id="name" name="name" class="form-control" v-model="formdata.nome">
+                                    <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome">
                                 </div>
                             </div>
                             <div class="col-md-9">
@@ -92,7 +92,7 @@
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(res => {
-                    this.formdata.name = res.data.name;
+                    this.formdata.nome = res.data.nome;
                     this.formdata.autor = res.data.autor;
                     this.formdata.local = res.data.local;
                     this.formdata.edicao = res.data.edicao;

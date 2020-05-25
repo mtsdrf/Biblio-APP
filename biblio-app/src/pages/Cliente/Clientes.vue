@@ -105,7 +105,7 @@
                             }
                         }).then(res => {
                             console.log(res);
-                            this.estantes = res.data;
+                            this.clientes = res.data;
                         })
                         .catch(err => {
                             console.log(err);
