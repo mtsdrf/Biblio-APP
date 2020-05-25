@@ -12,10 +12,10 @@
                     <ul class="menu js__accordion">
                         <!-- <li>
                             <a class="waves-effect" href="autores.html"><i class="menu-icon ti-user"></i><span>Autores</span></a>
-                        </li>
+                        </li>-->
                         <li>
                             <a class="waves-effect" href="clientes.html"><i class="menu-icon ti-user"></i><span>Clientes</span></a>
-                        </li> -->
+                        </li> 
                         <li>
                             <a class="waves-effect" href="livros.html"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a>
                         </li>

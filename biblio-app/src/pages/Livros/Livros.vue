@@ -5,10 +5,10 @@
                 <div class="box-content" style="padding: 15px">
                     <div class="row" style="margin-bottom: 15px;">
                         <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
-                            <h4>Usuários</h4>
+                            <h4>Livros</h4>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                            <router-link to='/usuario-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
+                            <router-link to='/livro-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                         </div>
                     </div>
                     <div class="table-responsive" data-pattern="priority-columns">
@@ -17,21 +17,23 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>CPF</th>
-                                    <th>RG</th>
+                                    <th>Editora</th>
+                                    <th>Ano</th>
+                                    <th>Autor</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr v-for="usuario in usuarios" :key="usuario.id">
-                                    <td>{{ usuario.name }}</td>
-                                    <td>{{ usuario.cpf }}</td>
-                                    <td>{{ usuario.rg }}</td>
+                            <tbody id="table-sgbds">
+                               <tr v-for="livro in livros" :key="livro.id">
+                                    <td>{{ livro.nome }}</td>
+                                    <td>{{ livro.editora }}</td>
+                                     <td>{{ livro.ano }}</td>
+                                      <td>{{ livro.autor }}</td>
                                     <td style="text-align: center">
-                                        <button v-on:click="editar(usuario.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                        <button v-on:click="editar(livro.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                             <i class="ico ti-pencil-alt"></i>
                                         </button>
-                                         <button v-on:click="apagar(usuario.id)" type="button" class="btn btn-danger waves-effect waves-light">
+                                        <button v-on:click="apagar(livro.id)" type="button" class="btn btn-danger waves-effect waves-light">
                                             <i class="ico ti-trash"></i>
                                         </button>
                                     </td>
@@ -50,62 +52,68 @@
     import axios from 'axios'
 
     export default {
-        name: 'Usuarios',
-        components: {
+        name: 'Livros',
+     components: {
             Layout
         },
         data () {
             return {
-                usuarios: []
+                livros: []
             }
         },
         beforeCreate() {
-            axios.get("http://localhost:8000/api/user", {
+            axios.get("http://localhost:8000/api/livro", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
                 console.log(res);
-                this.usuarios = res.data;
+                this.livros = res.data;
             })
             .catch(err => {
                 console.log(err);
-                alert("Falha ao realizar a busca dos usuários.");
+                alert("Falha ao realizar a busca dos livros.");
             });
         },
         methods: {
             editar: function(id) {
-                this.$router.replace('/usuario-formulario/' + id);
+                this.$router.replace('/livro-formulario/' + id);
             },
-              apagar: function (id) {
-                    axios.delete("http://localhost:8000/api/user/" + id, {
+
+            apagar: function (id) {
+                    axios.delete("http://localhost:8000/api/livro/" + id, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
                         console.log(res);
-                        alert("Deletado com sucesso.");
+                        alert("Deletado com sucesso.");    
                     })
                     .catch(err => {
                         console.log(err);
                         alert("Falha ao Deletar.");
                     });
-                    axios.get("http://localhost:8000/api/user", {
+                    axios.get("http://localhost:8000/api/livro", {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                                 }
                             }).then(res => {
                                 console.log(res);
-                                this.users = res.data;
+                                this.livros = res.data;
                             })
                             .catch(err => {
                                 console.log(err);
-                                alert("Falha ao Atualizar os Usuarios.");
+                                alert("Falha ao Atualizar os livros.");
                             });
                 }
         }
-    }
+    } 
+
 </script>
+
+<style>
+
+</style>

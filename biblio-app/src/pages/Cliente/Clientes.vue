@@ -5,10 +5,11 @@
                 <div class="box-content" style="padding: 15px">
                     <div class="row" style="margin-bottom: 15px;">
                         <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
-                            <h4>Usuários</h4>
+                            <h4>Clientes</h4>
                         </div>
+
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                            <router-link to='/usuario-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
+                            <router-link to='/cliente-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                         </div>
                     </div>
                     <div class="table-responsive" data-pattern="priority-columns">
@@ -17,21 +18,25 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
+                                    <th>Telefone</th>
                                     <th>CPF</th>
-                                    <th>RG</th>
+                                    <th>E-mail</th>
+                                    <th>Endereço</th>        
                                     <th>Opções</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr v-for="usuario in usuarios" :key="usuario.id">
-                                    <td>{{ usuario.name }}</td>
-                                    <td>{{ usuario.cpf }}</td>
-                                    <td>{{ usuario.rg }}</td>
+                            <tbody id="table-sgbds">
+                               <tr v-for="cliente in clientes" :key="cliente.id">
+                                    <td>{{ cliente.nome }}</td>
+                                    <td>{{ cliente.telefone }}</td>
+                                     <td>{{ cliente.cpf }}</td>
+                                      <td>{{ cliente.email }}</td>
+                                         <td>{{ cliente.endereco }}</td>
                                     <td style="text-align: center">
-                                        <button v-on:click="editar(usuario.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                        <button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                             <i class="ico ti-pencil-alt"></i>
                                         </button>
-                                         <button v-on:click="apagar(usuario.id)" type="button" class="btn btn-danger waves-effect waves-light">
+                                        <button v-on:click="apagar(cliente.id)" type="button" class="btn btn-danger waves-effect waves-light">
                                             <i class="ico ti-trash"></i>
                                         </button>
                                     </td>
@@ -50,36 +55,37 @@
     import axios from 'axios'
 
     export default {
-        name: 'Usuarios',
-        components: {
+        name: 'Clientes',
+     components: {
             Layout
         },
         data () {
             return {
-                usuarios: []
+                clientes: []
             }
         },
         beforeCreate() {
-            axios.get("http://localhost:8000/api/user", {
+            axios.get("http://localhost:8000/api/cliente", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
                 console.log(res);
-                this.usuarios = res.data;
+                this.clientes = res.data;
             })
             .catch(err => {
                 console.log(err);
-                alert("Falha ao realizar a busca dos usuários.");
+                alert("Falha ao realizar a busca de Clientes 1 .");
             });
         },
         methods: {
             editar: function(id) {
-                this.$router.replace('/usuario-formulario/' + id);
+                this.$router.replace('/cliente-formulario/' + id);
             },
-              apagar: function (id) {
-                    axios.delete("http://localhost:8000/api/user/" + id, {
+
+            apagar: function (id) {
+                    axios.delete("http://localhost:8000/api/cliente/" + id, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
@@ -92,20 +98,26 @@
                         console.log(err);
                         alert("Falha ao Deletar.");
                     });
-                    axios.get("http://localhost:8000/api/user", {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-                                }
-                            }).then(res => {
-                                console.log(res);
-                                this.users = res.data;
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                alert("Falha ao Atualizar os Usuarios.");
-                            });
+                      axios.get("http://localhost:8000/api/cliente", {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            }
+                        }).then(res => {
+                            console.log(res);
+                            this.estantes = res.data;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            alert("Falha ao atualizar os Clientes.");
+                        });
+                            }
                 }
-        }
     }
+
+
 </script>
+
+<style>
+
+</style>
