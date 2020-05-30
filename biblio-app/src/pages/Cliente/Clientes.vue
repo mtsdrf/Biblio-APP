@@ -70,40 +70,47 @@
                 </button>
             </div>
         </modal>
+        <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
 
 <script>
     import Layout from '@/components/Layout';
     import axios from 'axios'
+    import Loader from '@/components/Loader';
 
     export default {
         name: 'Clientes',
         components: {
-            Layout
+            Layout,
+            Loader
         },
         data () {
             return {
-                clientes: []
+                clientes: [],
+                isLoading: false
             }
         },
-        beforeCreate() {
+        created() {
+            this.isLoading = true
+
             axios.get("http://localhost:8000/api/cliente", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
-            }).then(res => {
-                console.log(res);
+            }).then((res) => {
+                this.isLoading = false
                 this.clientes = res.data;
             })
-            .catch(err => {
-                console.log(err);
+            .catch(() => {
+                this.isLoading = false
                 alert("Falha ao realizar a busca de Clientes 1 .");
             });
         },
         methods: {
             editar: function(id) {
+                this.isLoading = true;
                 this.$router.replace('/cliente-formulario/' + id);
             },
 
@@ -116,6 +123,7 @@
             },
 
             apagar: function () {
+                this.isLoading = true;
                 this.$modal.hide('modal-excluir');
                 var id = document.querySelector("#id_cliente_deletar").value;
                 axios.delete("http://localhost:8000/api/cliente/" + id, {
@@ -123,24 +131,26 @@
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                }).then(res => {
-                    console.log(res);
+                }).then(() => {
+                    this.isLoading = false
                     axios.get("http://localhost:8000/api/cliente", {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
-                        console.log(res);
+                    }).then((res) => {
+                        this.isLoading = false
                         this.clientes = res.data;
                     })
-                    .catch(err => {
+                    .catch((err) => {
+                        this.isLoading = false
                         console.log(err);
                         alert("Falha ao atualizar os Clientes.");
                     });
                     alert("Deletado com sucesso.");
                 })
-                .catch(err => {
+                .catch((err) => {
+                    this.isLoading = false
                     console.log(err);
                     alert("Falha ao Deletar.");
                 });
