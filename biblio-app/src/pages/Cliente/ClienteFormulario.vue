@@ -16,7 +16,7 @@
                                 <div class="col-md-9">
                                     <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                     <div class="controls">
-                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome">
+                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -80,36 +80,44 @@
         },
         created() {
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
+                this.isLoading = true;
                 axios.get("http://localhost:8000/api/cliente/" + this.$route.params.id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                }).then(res => {
+                }).then((res) => {
                     this.formdata.nome = res.data.nome;
                     this.formdata.telefone = res.data.telefone;
                     this.formdata.cpf = res.data.cpf;
                     this.formdata.email= res.data.email;
                     this.formdata.endereco = res.data.endereco;
+                    this.isLoading = false;
                 })
-                .catch(() => {
-                    alert("Falha ao realizar a busca de clientes 2 .");
+                .catch((err) => {
+                    console.log(err);
+                    this.isLoading = false;
+                    alert("Falha ao realizar a busca de clientes.");
                 });
             }
         },
         methods: {
             adicionar: function () {
+                this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
                     axios.post('http://localhost:8000/api/cliente', this.formdata, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(() => {
+                    }).then((res) => {
+                        this.isLoading = false;
+                        console.log(res);
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/clientes');
-                    })
-                    .catch(() => {
+                    }).catch((err) => {
+                        this.isLoading = false;
+                        console.log(err);
                         alert("Falha ao realizar o cadastro.");
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
@@ -118,16 +126,18 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(() => {
+                    }).then((res) => {
+                        this.isLoading = false;
+                        console.log(res);
                         alert("Alteração realizada com sucesso.");
                         this.$router.replace('/clientes');
-                    })
-                    .catch(() => {
+                    }).catch((err) => {
+                        this.isLoading = false;
+                        console.log(err);
                         alert("Falha ao realizar a alteração dos dados.");
                     });
                 }
             }
         }
-
     }
 </script>

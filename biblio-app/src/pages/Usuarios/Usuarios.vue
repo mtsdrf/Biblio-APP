@@ -66,24 +66,29 @@
                 </button>
             </div>
         </modal>
+        <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
 
 <script>
     import Layout from '@/components/Layout';
     import axios from 'axios'
+    import Loader from '@/components/Loader';
 
     export default {
         name: 'Usuarios',
         components: {
-            Layout
+            Layout,
+            Loader
         },
         data () {
             return {
-                usuarios: []
+                usuarios: [],
+                isLoading: false
             }
         },
-        beforeCreate() {
+        created() {
+            this.isLoading = true;
             axios.get("http://localhost:8000/api/user", {
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,10 +97,11 @@
             }).then(res => {
                 console.log(res);
                 this.usuarios = res.data;
-            })
-            .catch(err => {
+                this.isLoading = false;
+            }).catch(err => {
                 console.log(err);
-                alert("Falha ao realizar a busca dos usuários.");
+                this.isLoading = false;
+                alert("Falha ao realizar a busca de usuários.");
             });
         },
         methods: {
@@ -112,6 +118,7 @@
             },
 
             apagar: function () {
+                this.isLoading = true;
                 this.$modal.hide('modal-excluir');
                 var id = document.querySelector("#id_usuario_deletar").value;
                 axios.delete("http://localhost:8000/api/usuario/" + id, {
@@ -119,8 +126,7 @@
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                }).then(res => {
-                    console.log(res);
+                }).then(() => {
                     axios.get("http://localhost:8000/api/usuario", {
                         headers: {
                             'Content-Type': 'application/json',
@@ -129,15 +135,16 @@
                     }).then(res => {
                         console.log(res);
                         this.usuarios = res.data;
-                    })
-                    .catch(err => {
+                        this.isLoading = false;
+                        alert("Deletado com sucesso.");
+                    }).catch(err => {
                         console.log(err);
-                        alert("Falha ao atualizar os Usuários.");
+                        this.isLoading = false;
+                        alert("Deletado com sucesso, porém houve uma falha na busca dos dados atualizados.");
                     });
-                    alert("Deletado com sucesso.");
-                })
-                .catch(err => {
+                }).catch(err => {
                     console.log(err);
+                    this.isLoading = false;
                     alert("Falha ao Deletar.");
                 });
             }

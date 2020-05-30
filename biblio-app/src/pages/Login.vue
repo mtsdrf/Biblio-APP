@@ -7,7 +7,7 @@
                     <div class="frm-title">Login<br></div>
         
                     <div class="frm-input">
-                        <input type="text" placeholder="Email" v-model="formdata.email" class="frm-inp">
+                        <input type="text" placeholder="Email" v-model="formdata.email" class="frm-inp" autofocus>
                         <i class="fa fa-envelope frm-ico"></i>
                     </div>
 
@@ -36,28 +36,36 @@
                 </div>
             </form>
         </div>
-
+        <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import Loader from '@/components/Loader';
 
     export default {
         name: 'Login',
+        components: {
+            Loader
+        },
         data () {
             return {
-                formdata:{ email: '', password: '' }
+                formdata:{ email: '', password: '' },
+                isLoading: false
             }
         },
         methods: {
             submitform(){
+                this.isLoading = true
                 axios.post('http://localhost:8000/api/login', this.formdata )
                     .then(res => {
+                        this.isLoading = false
                         sessionStorage.setItem('token', res.data.access_token);
                         this.$router.replace('/home');
                     })
                     .catch(err => {
+                        this.isLoading = false
                         alert("erro: " + err);
                     })
             },

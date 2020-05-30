@@ -92,25 +92,24 @@
             }
         },
         created() {
-            this.isLoading = true
-
+            this.isLoading = true;
             axios.get("http://localhost:8000/api/cliente", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then((res) => {
-                this.isLoading = false
+                console.log(res); 
                 this.clientes = res.data;
-            })
-            .catch(() => {
-                this.isLoading = false
-                alert("Falha ao realizar a busca de Clientes 1 .");
+                this.isLoading = false;
+            }).catch((err) => {
+                console.log(err);
+                this.isLoading = false;
+                alert("Falha ao realizar a busca de clientes.");
             });
         },
         methods: {
             editar: function(id) {
-                this.isLoading = true;
                 this.$router.replace('/cliente-formulario/' + id);
             },
 
@@ -132,26 +131,24 @@
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(() => {
-                    this.isLoading = false
                     axios.get("http://localhost:8000/api/cliente", {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then((res) => {
-                        this.isLoading = false
+                        console.log(res);
                         this.clientes = res.data;
-                    })
-                    .catch((err) => {
-                        this.isLoading = false
+                        this.isLoading = false;
+                        alert("Deletado com sucesso.");
+                    }).catch((err) => {
+                        this.isLoading = false;
                         console.log(err);
-                        alert("Falha ao atualizar os Clientes.");
+                        alert("Deletado com sucesso, porém houve uma falha na busca dos dados atualizados.");
                     });
-                    alert("Deletado com sucesso.");
-                })
-                .catch((err) => {
-                    this.isLoading = false
+                }).catch((err) => {
                     console.log(err);
+                    this.isLoading = false;
                     alert("Falha ao Deletar.");
                 });
             }
