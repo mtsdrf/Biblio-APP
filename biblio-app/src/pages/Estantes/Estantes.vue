@@ -86,21 +86,20 @@
             }
         },
         created() {
-            this.isLoading = true
+            this.isLoading = true;
             axios.get("http://localhost:8000/api/estante", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                this.isLoading = false
                 console.log(res);
                 this.estantes = res.data;
-            })
-            .catch(err => {
-                this.isLoading = false
+                this.isLoading = false;
+            }).catch(err => {
                 console.log(err);
-                alert("Falha ao realizar a busca de Estantes.");
+                this.isLoading = false;
+                alert("Falha ao realizar a busca de estantes.");
             });
         },
         methods: {
@@ -117,7 +116,7 @@
             },
 
             apagar: function () {
-                this.isLoading = true
+                this.isLoading = true;
                 this.$modal.hide('modal-excluir');
                 var id = document.querySelector("#id_estante_deletar").value;
                 axios.delete("http://localhost:8000/api/estante/" + id, {
@@ -125,28 +124,25 @@
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                }).then(res => {
-                    console.log(res);
+                }).then(() => {
                     axios.get("http://localhost:8000/api/estante", {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
-                        this.isLoading = false
                         console.log(res);
                         this.estantes = res.data;
-                    })
-                    .catch(err => {
-                        this.isLoading = false
+                        this.isLoading = false;
+                        alert("Deletado com sucesso.");
+                    }).catch(err => {
+                        this.isLoading = false;
                         console.log(err);
-                        alert("Falha ao atualizar as Estantes.");
+                        alert("Deletado com sucesso, porém houve uma falha na busca dos dados atualizados.");
                     });
-                    alert("Deletado com sucesso.");
-                })
-                .catch(err => {
-                    this.isLoading = false
+                }).catch(err => {
                     console.log(err);
+                    this.isLoading = false;
                     alert("Falha ao Deletar.");
                 });
             }

@@ -1,97 +1,101 @@
 <template>
-    <layout>
-        <div class="row small-spacing">
-            <div class="col-lg-12 col-xs-12">
-                <div class="box-content" style="padding: 15px">
-                    <div class="row" style="margin-bottom: 5px;">
-                        <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
-                            <h4>Formulário de Livros</h4>
+    <div>
+        <layout>
+            <div class="row small-spacing">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="box-content" style="padding: 15px">
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
+                                <h4>Formulário de Livros</h4>
+                            </div>
                         </div>
-
-
-                    </div>
-                    <div class="form-group row">
-                        <form @submit.prevent="adicionar">
-                            <div class="col-md-9">
-                                <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
-                                <div class="controls">
-                                    <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome">
+                        <div class="form-group row">
+                            <form @submit.prevent="adicionar">
+                                <div class="col-md-9">
+                                    <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
+                                    <div class="controls">
+                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <label for="autor" style="margin-bottom: 0px; margin-top: 10px;">Autor</label>
-                                <div class="controls">
-                                    <input type="text" id="autor" name="autor" class="form-control" v-model="formdata.autor">
+                                <div class="col-md-9">
+                                    <label for="autor" style="margin-bottom: 0px; margin-top: 10px;">Autor</label>
+                                    <div class="controls">
+                                        <input type="text" id="autor" name="autor" class="form-control" v-model="formdata.autor">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <label for="edicao" style="margin-bottom: 0px; margin-top: 10px;">Edição</label>
-                                <div class="controls">
-                                    <input type="text" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao">
+                                <div class="col-md-9">
+                                    <label for="edicao" style="margin-bottom: 0px; margin-top: 10px;">Edição</label>
+                                    <div class="controls">
+                                        <input type="text" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <label for="local" style="margin-bottom: 0px; margin-top: 10px;">Local</label>
-                                <div class="controls">
-                                    <input type="text" id="local" name="local" class="form-control" v-model="formdata.local">
+                                <div class="col-md-9">
+                                    <label for="local" style="margin-bottom: 0px; margin-top: 10px;">Local</label>
+                                    <div class="controls">
+                                        <input type="text" id="local" name="local" class="form-control" v-model="formdata.local">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <label for="editora" style="margin-bottom: 0px; margin-top: 10px;">Editora</label>
-                                <div class="controls">
-                                    <input type="text" id="editora" name="editora" class="form-control" v-model="formdata.editora">
+                                <div class="col-md-9">
+                                    <label for="editora" style="margin-bottom: 0px; margin-top: 10px;">Editora</label>
+                                    <div class="controls">
+                                        <input type="text" id="editora" name="editora" class="form-control" v-model="formdata.editora">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <label for="ano" style="margin-bottom: 0px; margin-top: 10px;">Ano</label>
-                                <div class="controls">
-                                    <input type="text" id="ano" name="ano" class="form-control" v-model="formdata.ano">
+                                <div class="col-md-9">
+                                    <label for="ano" style="margin-bottom: 0px; margin-top: 10px;">Ano</label>
+                                    <div class="controls">
+                                        <input type="text" id="ano" name="ano" class="form-control" v-model="formdata.ano">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <label for="identificador" style="margin-bottom: 0px; margin-top: 10px;">Identificador</label>
-                                <div class="controls">
-                                    <input type="text" id="identificador" name="identificador" class="form-control" v-model="formdata.identificador">
+                                <div class="col-md-9">
+                                    <label for="identificador" style="margin-bottom: 0px; margin-top: 10px;">Identificador</label>
+                                    <div class="controls">
+                                        <input type="text" id="identificador" name="identificador" class="form-control" v-model="formdata.identificador">
+                                    </div>
                                 </div>
-                            </div>
-   
-                            <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
-                                <div class="controls">
-                                    <button class="btn btn-info btn-sm waves-effect waves-light">{{ this.$route.params.id !== undefined && this.$route.params.id !== null ? "Salvar" : "Cadastrar" }}</button>
-                                    
-                                    <router-link to='/livros'><button style="margin-left:20px" class="btn btn-warning btn-sm waves-effect waves-light">Voltar</button></router-link>
+                                <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
+                                    <div class="controls">
+                                        <button class="btn btn-info btn-sm waves-effect waves-light">{{ this.$route.params.id !== undefined && this.$route.params.id !== null ? "Salvar" : "Cadastrar" }}</button>
+                                        
+                                        <router-link to='/livros'><button style="margin-left:20px" class="btn btn-warning btn-sm waves-effect waves-light">Voltar</button></router-link>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </layout>
+        </layout>
+        <Loader :is-visible="isLoading"></Loader>
+    </div>
 </template>
 
 <script>
     import Layout from '@/components/Layout';
-    import axios from 'axios'
+    import axios from 'axios';
+    import Loader from '@/components/Loader';
 
     export default {
         name: 'LivroFormulario',
         components: {
-            Layout
+            Layout,
+            Loader
         },
         data () {
             return {
-                formdata:{ nome: '', autor: '', local: '', edicao: '', editora: '', ano: '', identificador: '' }
+                formdata:{ nome: '', autor: '', local: '', edicao: '', editora: '', ano: '', identificador: '' },
+                isLoading: false
             }
         },
-        beforeCreate() {
+        created() {
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
+                this.isLoading = true;
                 axios.get("http://localhost:8000/api/livro/" + this.$route.params.id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                }).then(res => {
+                }).then((res) => {
                     this.formdata.nome = res.data.nome;
                     this.formdata.autor = res.data.autor;
                     this.formdata.local = res.data.local;
@@ -99,27 +103,31 @@
                     this.formdata.editora = res.data.editora;
                     this.formdata.ano = res.data.ano;
                     this.formdata.identificador = res.data.identificador;
+                    this.isLoading = false;
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
+                    this.isLoading = false;
                     alert("Falha ao realizar a busca de livros.");
                 });
             }
         },
         methods: {
             adicionar: function () {
+                this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
                     axios.post('http://localhost:8000/api/livro', this.formdata, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
+                    }).then((res) => {
+                        this.isLoading = false;
                         console.log(res);
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/livros');
-                    })
-                    .catch(err => {
+                    }).catch((err) => {
+                        this.isLoading = false;
                         console.log(err);
                         alert("Falha ao realizar o cadastro.");
                     });
@@ -129,17 +137,17 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
+                    }).then((res) => {
+                        this.isLoading = false;
                         console.log(res);
                         alert("Alteração realizada com sucesso.");
                         this.$router.replace('/livros');
-                    })
-                    .catch(err => {
+                    }).catch((err) => {
+                        this.isLoading = false;
                         console.log(err);
                         alert("Falha ao realizar a alteração dos dados.");
                     });
                 }
-                 
             }
         }
 

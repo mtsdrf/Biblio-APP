@@ -14,7 +14,7 @@
                                 <div class="col-md-9">
                                     <label for="numero" style="margin-bottom: 0px; margin-top: 10px;">Numero</label>
                                     <div class="controls">
-                                        <input type="text" id="numero" name="numero" class="form-control" v-model="formdata.numero">
+                                        <input type="text" id="numero" name="numero" class="form-control" v-model="formdata.numero" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -58,7 +58,7 @@
                 isLoading: false
             }
         },
-        beforeCreate() {
+        created() {
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
                 this.isLoading = true;
                 axios.get("http://localhost:8000/api/estante/" + this.$route.params.id, {
@@ -66,14 +66,14 @@
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                }).then(res => {
+                }).then((res) => {
                     this.formdata.numero = res.data.numero;
                     this.formdata.tipo_livro = res.data.tipo_livro;
                     this.isLoading = false;
                 })
-                .catch(err => {
-                    this.isLoading = false;
+                .catch((err) => {
                     console.log(err);
+                    this.isLoading = false;
                     alert("Falha ao realizar a busca de estantes.");
                 });
             }
@@ -87,13 +87,12 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
+                    }).then((res) => {
                         this.isLoading = false;
                         console.log(res);
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/estantes');
-                    })
-                    .catch(err => {
+                    }).catch((err) => {
                         this.isLoading = false;
                         console.log(err);
                         alert("Falha ao realizar o cadastro.");
@@ -104,13 +103,12 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then(res => {
+                    }).then((res) => {
                         this.isLoading = false;
                         console.log(res);
                         alert("Alteração realizada com sucesso.");
                         this.$router.replace('/estantes');
-                    })
-                    .catch(err => {
+                    }).catch((err) => {
                         this.isLoading = false;
                         console.log(err);
                         alert("Falha ao realizar a alteração dos dados.");
