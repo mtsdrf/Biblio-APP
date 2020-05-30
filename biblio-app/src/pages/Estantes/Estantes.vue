@@ -64,34 +64,41 @@
                 </button>
             </div>
         </modal>
+        <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
 
 <script>
     import Layout from '@/components/Layout';
     import axios from 'axios'
+    import Loader from '@/components/Loader';
 
     export default {
         name: 'Estantes',
         components: {
-            Layout
+            Layout,
+            Loader
         },
         data () {
             return {
-                estantes: []
+                estantes: [],
+                isLoading: false
             }
         },
-        beforeCreate() {
+        created() {
+            this.isLoading = true
             axios.get("http://localhost:8000/api/estante", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
+                this.isLoading = false
                 console.log(res);
                 this.estantes = res.data;
             })
             .catch(err => {
+                this.isLoading = false
                 console.log(err);
                 alert("Falha ao realizar a busca de Estantes.");
             });
@@ -110,6 +117,7 @@
             },
 
             apagar: function () {
+                this.isLoading = true
                 this.$modal.hide('modal-excluir');
                 var id = document.querySelector("#id_estante_deletar").value;
                 axios.delete("http://localhost:8000/api/estante/" + id, {
@@ -125,16 +133,19 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
+                        this.isLoading = false
                         console.log(res);
                         this.estantes = res.data;
                     })
                     .catch(err => {
+                        this.isLoading = false
                         console.log(err);
                         alert("Falha ao atualizar as Estantes.");
                     });
                     alert("Deletado com sucesso.");
                 })
                 .catch(err => {
+                    this.isLoading = false
                     console.log(err);
                     alert("Falha ao Deletar.");
                 });

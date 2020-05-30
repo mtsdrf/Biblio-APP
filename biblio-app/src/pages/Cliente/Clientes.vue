@@ -110,7 +110,6 @@
         },
         methods: {
             editar: function(id) {
-                this.isLoading = true;
                 this.$router.replace('/cliente-formulario/' + id);
             },
 
