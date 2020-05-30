@@ -28,8 +28,8 @@
     #loading-content {
         display: block;
         position: relative;
-        left: 50%;
-        top: 50%;
+        left: 53%;
+        top: 53%;
         width: 100px;
         height: 100px;
         margin: -85px 0 0 -85px;
