@@ -80,12 +80,14 @@
         },
         created() {
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
+                this.isLoading = true;
                 axios.get("http://localhost:8000/api/cliente/" + this.$route.params.id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(res => {
+                    this.isLoading = false;
                     this.formdata.nome = res.data.nome;
                     this.formdata.telefone = res.data.telefone;
                     this.formdata.cpf = res.data.cpf;
@@ -93,12 +95,14 @@
                     this.formdata.endereco = res.data.endereco;
                 })
                 .catch(() => {
+                    this.isLoading = false;
                     alert("Falha ao realizar a busca de clientes 2 .");
                 });
             }
         },
         methods: {
             adicionar: function () {
+                this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
                     axios.post('http://localhost:8000/api/cliente', this.formdata, {
                         headers: {
@@ -106,10 +110,12 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(() => {
+                        this.isLoading = false;
                         alert("Cadastro realizado com sucesso.");
                         this.$router.replace('/clientes');
                     })
                     .catch(() => {
+                        this.isLoading = false;
                         alert("Falha ao realizar o cadastro.");
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
@@ -119,15 +125,16 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(() => {
+                        this.isLoading = false;
                         alert("Alteração realizada com sucesso.");
                         this.$router.replace('/clientes');
                     })
                     .catch(() => {
+                        this.isLoading = false;
                         alert("Falha ao realizar a alteração dos dados.");
                     });
                 }
             }
         }
-
     }
 </script>
