@@ -18,6 +18,7 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
+                                        <th>Email</th>
                                         <th>CPF</th>
                                         <th>RG</th>
                                         <th>Opções</th>
@@ -26,6 +27,7 @@
                                 <tbody>
                                     <tr v-for="usuario in usuarios" :key="usuario.id">
                                         <td>{{ usuario.name }}</td>
+                                        <td>{{ usuario.email }}</td>
                                         <td>{{ usuario.cpf }}</td>
                                         <td>{{ usuario.rg }}</td>
                                         <td style="text-align: center">
@@ -38,7 +40,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!usuarios.length" style="text-align:center">
-                                        <td colspan="4">Sem registros</td>
+                                        <td colspan="5">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -121,13 +123,13 @@
                 this.isLoading = true;
                 this.$modal.hide('modal-excluir');
                 var id = document.querySelector("#id_usuario_deletar").value;
-                axios.delete("http://localhost:8000/api/usuario/" + id, {
+                axios.delete("http://localhost:8000/api/user/" + id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(() => {
-                    axios.get("http://localhost:8000/api/usuario", {
+                    axios.get("http://localhost:8000/api/user", {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
