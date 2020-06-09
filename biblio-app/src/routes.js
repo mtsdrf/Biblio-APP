@@ -8,6 +8,8 @@ import Estantes from "./pages/Estantes/Estantes.vue";
 import EstanteFormulario from "./pages/Estantes/EstanteFormulario.vue";
 import Clientes from "./pages/Clientes/Clientes.vue";
 import ClienteFormulario from "./pages/Clientes/ClienteFormulario.vue";
+import Emprestimos from "./pages/Emprestimos/Emprestimos.vue";
+import EmprestimoFormulario from "./pages/Emprestimos/EmprestimoFormulario.vue";
 
 const routes = [ 
     { path: "/", name: "Login", component: Login },
@@ -19,7 +21,9 @@ const routes = [
     { path: "/estantes", name: "Estantes", component: Estantes },
     { path: "/estante-formulario/:id?", name: "EstanteFormulario", component: EstanteFormulario },
     { path: "/clientes", name: "Clientes", component: Clientes },
-    { path: "/cliente-formulario/:id?", name: "ClienteFormulario", component: ClienteFormulario }
+    { path: "/cliente-formulario/:id?", name: "ClienteFormulario", component: ClienteFormulario },
+    { path: "/emprestimos", name: "Emprestimos", component: Emprestimos },
+    { path: "/emprestimo-formulario/:id?", name: "EmprestimoFormulario", component: EmprestimoFormulario }
 ];
 
 

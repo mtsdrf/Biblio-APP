@@ -28,6 +28,9 @@
                         <li>
                             <a class="waves-effect" href="usuarios.html"><i class="menu-icon ti-user"></i><span>Usuários</span></a>
                         </li>
+                        <li>
+                            <a class="waves-effect" href="emprestimos.html"><i class="menu-icon ti-user"></i><span>Empréstimos</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
