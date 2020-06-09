@@ -35,7 +35,7 @@
                                 <div class="col-md-9">
                                     <label for="email" style="margin-bottom: 0px; margin-top: 10px;">E-mail</label>
                                     <div class="controls">
-                                        <input type="text" id="email" name="email" class="form-control" v-model="formdata.email">
+                                        <input type="email" id="email" name="email" class="form-control" v-model="formdata.email">
                                     </div>
                                 </div>
                                 <div class="col-md-9">

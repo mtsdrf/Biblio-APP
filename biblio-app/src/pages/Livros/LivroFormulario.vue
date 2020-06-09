@@ -26,7 +26,7 @@
                                 <div class="col-md-9">
                                     <label for="edicao" style="margin-bottom: 0px; margin-top: 10px;">Edição</label>
                                     <div class="controls">
-                                        <input type="text" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao">
+                                        <input type="number" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -44,7 +44,7 @@
                                 <div class="col-md-9">
                                     <label for="ano" style="margin-bottom: 0px; margin-top: 10px;">Ano</label>
                                     <div class="controls">
-                                        <input type="text" id="ano" name="ano" class="form-control" v-model="formdata.ano">
+                                        <input type="number" id="ano" name="ano" class="form-control" v-model="formdata.ano">
                                     </div>
                                 </div>
                                 <div class="col-md-9">

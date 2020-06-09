@@ -14,7 +14,7 @@
                                 <div class="col-md-9">
                                     <label for="numero" style="margin-bottom: 0px; margin-top: 10px;">Numero</label>
                                     <div class="controls">
-                                        <input type="text" id="numero" name="numero" class="form-control" v-model="formdata.numero" autofocus>
+                                        <input type="number" id="numero" name="numero" class="form-control" v-model="formdata.numero" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-md-9">

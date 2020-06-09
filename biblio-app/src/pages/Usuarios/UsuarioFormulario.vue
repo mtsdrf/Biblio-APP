@@ -32,7 +32,7 @@
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="data_nascimento">Data de Nascimento</label>
                                     <div class="controls">
-                                        <input type="text" id="data_nascimento" name="data_nascimento" class="form-control" v-model="formdata.data_nascimento">
+                                        <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" v-model="formdata.data_nascimento">
                                     </div>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
