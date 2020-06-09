@@ -6,10 +6,10 @@ import Livros from "./pages/Livros/Livros.vue";
 import LivroFormulario from "./pages/Livros/LivroFormulario.vue";
 import Estantes from "./pages/Estantes/Estantes.vue";
 import EstanteFormulario from "./pages/Estantes/EstanteFormulario.vue";
-import Clientes from "./pages/Cliente/Clientes.vue";
-import ClienteFormulario from "./pages/Cliente/ClienteFormulario.vue";
+import Clientes from "./pages/Clientes/Clientes.vue";
+import ClienteFormulario from "./pages/Clientes/ClienteFormulario.vue";
 
-const routes = [
+const routes = [ 
     { path: "/", name: "Login", component: Login },
     { path: "/home", name: "Home", component: HomePage },
     { path: "/usuarios", name: "Usuarios", component: Usuarios },
