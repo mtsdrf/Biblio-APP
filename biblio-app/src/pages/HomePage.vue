@@ -4,7 +4,7 @@
             <div class="col-lg-6 col-md-6 col-sm-5 col-xs-5">
                 <div class="box-content">
                     <div class="statistics-box">
-                        <p class="text">Livros com Atraso</p>
+                        <h4 style="font-size: 16px; font-weight: 600" class="text">Livros com Atraso</h4>
                         <h2 class="counter">15</h2>
                     </div>
                 </div>
@@ -12,7 +12,7 @@
             <div class="col-lg-6 col-md-6 col-sm-7 col-xs-7">
                 <div class="box-content">
                     <div class="statistics-box">
-                        <p class="text">Livros Emprestados</p>
+                        <h4 style="font-size: 16px; font-weight: 600" class="text">Livros Emprestados</h4>
                         <h2 class="counter">200</h2>
                     </div>
                 </div>
