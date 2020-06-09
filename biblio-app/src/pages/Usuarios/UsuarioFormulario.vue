@@ -20,13 +20,13 @@
                                 <div class="col-md-9">
                                     <label for="cpf" style="margin-bottom: 0px; margin-top: 10px;">CPF</label>
                                     <div class="controls">
-                                        <input type="text" id="cpf" name="cpf" class="form-control" v-model="formdata.cpf">
+                                        <input type="text" id="cpf" name="cpf" class="form-control" v-model="formdata.cpf" v-mask="['###.###.###-##']">
                                     </div>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="rg">RG</label>
                                     <div class="controls">
-                                        <input type="text" id="rg" name="rg" class="form-control" v-model="formdata.rg">
+                                        <input type="text" id="rg" name="rg" class="form-control" v-model="formdata.rg" >
                                     </div>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
