@@ -13,27 +13,32 @@
                     <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo Usuário!</h5>
                     <h5 class="title">Navegação</h5>
                     <ul class="menu js__accordion">
-                        <!-- <li>
-                            <a class="waves-effect" href="autores.html"><i class="menu-icon ti-user"></i><span>Autores</span></a>
-                        </li>-->
                         <li>
                             <router-link to='/clientes'><a class="waves-effect"><i class="menu-icon ti-user"></i><span>Clientes</span></a></router-link>
-                        </li> 
+                        </li>
                         <li>
                             <router-link to='/livros'><a class="waves-effect"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a></router-link>
                         </li>
-                        <li>
-                            <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-map"></i><span>Estantes</span></a></router-link>
-                        </li>
-                        <!-- <li>
-                            <a class="waves-effect" href="prateleiras.html"><i class="menu-icon ti-map-alt"></i><span>Prateleiras</span></a>
-                        </li> -->
                         <li>
                             <router-link to='/usuarios'><a class="waves-effect"><i class="menu-icon ti-user"></i><span>Usuários</span></a></router-link>
                         </li>
                         <li>
                             <router-link to='/emprestimos'><a class="waves-effect"><i class="menu-icon ti-book"></i><span>Empréstimos</span></a></router-link>
                         </li>
+                        <li>
+                            <!--a class="waves-effect parent-item js__control"><i class="menu-icon ti-flag"></i><span>Localização</span><span class="menu-arrow fa fa-angle-down"></span></a>
+                            <ul class="sub-menu js__content"-->
+                                <li>
+                                    <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon ti-book"></i><span>Corredores</span></a></router-link>
+                                </li>
+                                <li>
+                                    <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-map"></i><span>Estantes</span></a></router-link>
+                                </li>
+                                <li>
+                                    <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-book"></i><span>Prateleiras</span></a></router-link>
+                                </li>
+                            <!--/ul>
+                        </li-->
                     </ul>
                 </div>
             </div>
