@@ -16,32 +16,32 @@
                                 <div class="col-md-9">
                                     <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                     <div class="controls">
-                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus>
+                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="telefone" style="margin-bottom: 0px; margin-top: 10px;">Telefone</label>
                                     <div class="controls">
-                                        <input type="text" id="telefone" name="telefone" class="form-control" v-model="formdata.telefone" v-mask="['(##) ####-####', '(##) #####-####']">
+                                        <input type="text" id="telefone" name="telefone" class="form-control" v-model="formdata.telefone" v-mask="['(##) ####-####', '(##) #####-####']" required>
                                     </div>
                                 </div>
     
                                 <div class="col-md-9">
                                     <label for="cpf" style="margin-bottom: 0px; margin-top: 10px;">CPF</label>
                                     <div class="controls">
-                                        <input type="text" id="cpf" name="cpf" class="form-control" v-model="formdata.cpf" v-mask="['###.###.###-##']">
+                                        <input type="text" id="cpf" name="cpf" class="form-control" v-model="formdata.cpf" v-mask="['###.###.###-##']" required minlength="14" maxlength="14">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="email" style="margin-bottom: 0px; margin-top: 10px;">E-mail</label>
                                     <div class="controls">
-                                        <input type="email" id="email" name="email" class="form-control" v-model="formdata.email">
+                                        <input type="email" id="email" name="email" class="form-control" v-model="formdata.email" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="endereco" style="margin-bottom: 0px; margin-top: 10px;">Endereço</label>
                                     <div class="controls">
-                                        <input type="text" id="endereco" name="endereco" class="form-control" v-model="formdata.endereco">
+                                        <input type="text" id="endereco" name="endereco" class="form-control" v-model="formdata.endereco" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">

@@ -14,43 +14,43 @@
                                 <div class="col-md-9">
                                     <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                     <div class="controls">
-                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus>
+                                        <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="autor" style="margin-bottom: 0px; margin-top: 10px;">Autor</label>
                                     <div class="controls">
-                                        <input type="text" id="autor" name="autor" class="form-control" v-model="formdata.autor">
+                                        <input type="text" id="autor" name="autor" class="form-control" v-model="formdata.autor" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="edicao" style="margin-bottom: 0px; margin-top: 10px;">Edição</label>
                                     <div class="controls">
-                                        <input type="number" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao">
+                                        <input type="number" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="local" style="margin-bottom: 0px; margin-top: 10px;">Local</label>
                                     <div class="controls">
-                                        <input type="text" id="local" name="local" class="form-control" v-model="formdata.local">
+                                        <input type="text" id="local" name="local" class="form-control" v-model="formdata.local" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="editora" style="margin-bottom: 0px; margin-top: 10px;">Editora</label>
                                     <div class="controls">
-                                        <input type="text" id="editora" name="editora" class="form-control" v-model="formdata.editora">
+                                        <input type="text" id="editora" name="editora" class="form-control" v-model="formdata.editora" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="ano" style="margin-bottom: 0px; margin-top: 10px;">Ano</label>
                                     <div class="controls">
-                                        <input type="number" id="ano" name="ano" class="form-control" v-model="formdata.ano">
+                                        <input type="number" id="ano" name="ano" class="form-control" v-model="formdata.ano" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="identificador" style="margin-bottom: 0px; margin-top: 10px;">Identificador</label>
                                     <div class="controls">
-                                        <input type="text" id="identificador" name="identificador" class="form-control" v-model="formdata.identificador">
+                                        <input type="text" id="identificador" name="identificador" class="form-control" v-model="formdata.identificador" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">

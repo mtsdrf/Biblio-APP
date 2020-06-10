@@ -14,19 +14,19 @@
                                 <div class="col-md-9">
                                     <label for="dia_devolucao" style="margin-bottom: 0px; margin-top: 10px;">Data de Devolução</label>
                                     <div class="controls">
-                                        <input type="date" id="dia_devolucao" name="dia_devolucao" class="form-control" v-model="formdata.dia_devolucao">
+                                        <input type="date" id="dia_devolucao" name="dia_devolucao" class="form-control" v-model="formdata.dia_devolucao" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="id_cliente">Cliente</label>
                                     <div class="controls">
-                                        <input type="text" id="id_cliente" name="id_cliente" class="form-control" v-model="formdata.id_cliente" >
+                                        <input type="text" id="id_cliente" name="id_cliente" class="form-control" v-model="formdata.id_cliente" required>
                                     </div>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="id_livro">Livro</label>
                                     <div class="controls">
-                                        <input type="text" id="id_livro" name="id_livro" class="form-control" v-model="formdata.id_livro">
+                                        <input type="text" id="id_livro" name="id_livro" class="form-control" v-model="formdata.id_livro" required>
                                     </div>
                                 </div>
                                 

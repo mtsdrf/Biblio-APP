@@ -14,13 +14,13 @@
                                 <div class="col-md-9">
                                     <label for="numero" style="margin-bottom: 0px; margin-top: 10px;">Numero</label>
                                     <div class="controls">
-                                        <input type="number" id="numero" name="numero" class="form-control" v-model="formdata.numero" autofocus>
+                                        <input type="number" id="numero" name="numero" class="form-control" v-model="formdata.numero" autofocus required>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="tipo_livro" style="margin-bottom: 0px; margin-top: 10px;">Tipos de Livros</label>
                                     <div class="controls">
-                                        <input type="text" id="tipo_livro" name="tipo_livro" class="form-control" v-model="formdata.tipo_livro">
+                                        <input type="text" id="tipo_livro" name="tipo_livro" class="form-control" v-model="formdata.tipo_livro" required>
                                     </div>
                                 </div>
                                 
