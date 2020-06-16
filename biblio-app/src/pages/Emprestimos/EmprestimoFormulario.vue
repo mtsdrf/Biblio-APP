@@ -73,6 +73,7 @@
             }
         },
         created() {
+            this.isLoading = true;
             axios.get("http://localhost:8000/api/cliente", {
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,8 +92,10 @@
                 }
             }).then((res) => {
                 this.livros = res.data;
+                this.isLoading = false;
             }).catch(() => {
                 alert("Falha ao realizar a busca de livros.");
+                this.isLoading = false;
             });
             
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
