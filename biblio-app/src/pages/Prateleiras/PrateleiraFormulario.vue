@@ -20,7 +20,7 @@
                                 <div class="col-md-9">
                                     <label for="id_estante" style="margin-bottom: 0px; margin-top: 10px;">Estante</label>
                                     <div class="controls">
-                                        <input type="text" id="id_estante" name="id_estante" class="form-control" v-model="formdata.id_estante" required>
+                                        <v-select class="form-control" :options="this.estantes" :reduce="estante => estante.id" label="numero" v-model="formdata.id_estante" required></v-select>
                                     </div>
                                 </div>
                                 <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
@@ -44,6 +44,7 @@
     import Layout from '@/components/Layout';
     import axios from 'axios'
     import Loader from '@/components/Loader';
+    import 'vue-select/dist/vue-select.css';
 
     export default {
         name: 'PrateleiraFormulario',
@@ -53,11 +54,22 @@
         },
         data () {
             return {
+                estantes: [],
                 formdata:{ numero: '', id_estante: '' },
                 isLoading: false
             }
         },
         created() {
+            axios.get("http://localhost:8000/api/estante", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.estantes = res.data;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de estantes.");
+            });
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
                 this.isLoading = true;
                 axios.get("http://localhost:8000/api/prateleira/" + this.$route.params.id, {
@@ -117,3 +129,14 @@
         }
     }
 </script>
+
+<style>
+    .vs__dropdown-toggle {
+        border: 0px solid rgba(60,60,60,.26)!important
+    }
+
+    .vs__selected {
+        margin: 0px!important;
+        padding: 0px!important;
+    }
+</style>
