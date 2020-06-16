@@ -23,7 +23,12 @@
                                         <input type="text" id="tipo_livro" name="tipo_livro" class="form-control" v-model="formdata.tipo_livro" required>
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-9">
+                                    <label for="id_corredor" style="margin-bottom: 0px; margin-top: 10px;">Corredor</label>
+                                    <div class="controls">
+                                        <v-select class="form-control" :options="this.corredores" :reduce="corredor => corredor.id" label="letra" v-model="formdata.id_corredor" required></v-select>
+                                    </div>
+                                </div>
                                 <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
                                     <div class="controls">
                                         <button class="btn btn-info btn-sm waves-effect waves-light">{{ this.$route.params.id !== undefined && this.$route.params.id !== null ? "Salvar" : "Cadastrar" }}</button>
@@ -54,11 +59,22 @@
         },
         data () {
             return {
-                formdata:{ numero: '', tipo_livro: '' },
+                corredores: [],
+                formdata:{ numero: '', tipo_livro: '', id_corredor: '' },
                 isLoading: false
             }
         },
         created() {
+            axios.get("http://localhost:8000/api/corredor", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.corredores = res.data;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de corredores.");
+            });
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
                 this.isLoading = true;
                 axios.get("http://localhost:8000/api/estante/" + this.$route.params.id, {
@@ -69,6 +85,7 @@
                 }).then((res) => {
                     this.formdata.numero = res.data.numero;
                     this.formdata.tipo_livro = res.data.tipo_livro;
+                    this.formdata.id_corredor = res.data.id_corredor;
                     this.isLoading = false;
                 })
                 .catch((err) => {
