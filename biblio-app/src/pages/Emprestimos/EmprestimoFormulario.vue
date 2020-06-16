@@ -12,6 +12,12 @@
                         <div class="form-group row">
                             <form @submit.prevent="adicionar">
                                 <div class="col-md-9">
+                                    <label for="dia_emprestimo" style="margin-bottom: 0px; margin-top: 10px;">Data de Empréstimo</label>
+                                    <div class="controls">
+                                        <input type="date" id="dia_emprestimo" name="dia_emprestimo" class="form-control" v-model="formdata.dia_emprestimo" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
                                     <label for="dia_devolucao" style="margin-bottom: 0px; margin-top: 10px;">Data de Devolução</label>
                                     <div class="controls">
                                         <input type="date" id="dia_devolucao" name="dia_devolucao" class="form-control" v-model="formdata.dia_devolucao" required>
@@ -20,13 +26,13 @@
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="id_cliente">Cliente</label>
                                     <div class="controls">
-                                        <input type="text" id="id_cliente" name="id_cliente" class="form-control" v-model="formdata.id_cliente" required>
+                                        <v-select class="form-control" :options="this.clientes" :reduce="cliente => cliente.id" label="nome" v-model="formdata.id_cliente" required></v-select>
                                     </div>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="id_livro">Livro</label>
                                     <div class="controls">
-                                        <input type="text" id="id_livro" name="id_livro" class="form-control" v-model="formdata.id_livro" required>
+                                        <v-select class="form-control" :options="this.livros" :reduce="livro => livro.id" label="nome" v-model="formdata.id_livro" required></v-select>
                                     </div>
                                 </div>
                                 
@@ -60,19 +66,44 @@
         },
         data () {
             return {
-                formdata:{ dia_devolucao: '', id_cliente: '', id_livro: '' },
+                livros: [],
+                clientes: [],
+                formdata:{ dia_devolucao: '', dia_emprestimo: '', id_cliente: '', id_livro: '' },
                 isLoading: false
             }
         },
         created() {
+            axios.get("http://localhost:8000/api/cliente", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.clientes = res.data;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de clientes.");
+            });
+
+            axios.get("http://localhost:8000/api/livro", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.livros = res.data;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de livros.");
+            });
+            
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
-                axios.get("http://localhost:8000/api/user/" + this.$route.params.id, {
+                axios.get("http://localhost:8000/api/emprestimo/" + this.$route.params.id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then((res) => {
                     this.formdata.dia_devolucao = res.data.dia_devolucao;
+                    this.formdata.dia_emprestimo = res.data.dia_emprestimo;
                     this.formdata.id_cliente = res.data.id_cliente;
                     this.formdata.id_livro = res.data.id_livro;
                     this.isLoading = false;
@@ -88,7 +119,7 @@
             adicionar: function () {
                 this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
-                    axios.post('http://localhost:8000/api/user', this.formdata, {
+                    axios.post('http://localhost:8000/api/emprestimo', this.formdata, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
@@ -104,7 +135,7 @@
                         alert("Falha ao realizar o cadastro.");
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
-                    axios.put('http://localhost:8000/api/user/' + this.$route.params.id, this.formdata, {
+                    axios.put('http://localhost:8000/api/emprestimo/' + this.$route.params.id, this.formdata, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')

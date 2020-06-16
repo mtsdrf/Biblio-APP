@@ -20,6 +20,7 @@
                                         <th>Empréstimo</th>
                                         <th>Devolução</th>
                                         <th>Cliente</th>
+                                        <th>Email Cliente</th>
                                         <th>Livro</th>
                                         <th>Opções</th>
                                     </tr>
@@ -28,8 +29,9 @@
                                     <tr v-for="emprestimo in emprestimos" :key="emprestimo.id">
                                         <td>{{ emprestimo.dia_emprestimo }}</td>
                                         <td>{{ emprestimo.dia_devolucao }}</td>
-                                        <td>{{ emprestimo.id_cliente }}</td>
-                                        <td>{{ emprestimo.id_livro }}</td>
+                                        <td>{{ emprestimo.cliente_nome }}</td>
+                                        <td>{{ emprestimo.cliente_email }}</td>
+                                        <td>{{ emprestimo.livro_nome }}</td>
                                         <td style="text-align: center">
                                             <button v-on:click="editar(emprestimo.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
@@ -40,7 +42,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!emprestimos.length" style="text-align:center">
-                                        <td colspan="5">Sem registros</td>
+                                        <td colspan="6">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -91,7 +93,7 @@
         },
         created() {
             this.isLoading = true;
-            axios.get("http://localhost:8000/api/user", {
+            axios.get("http://localhost:8000/api/emprestimo", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
@@ -103,7 +105,7 @@
             }).catch(err => {
                 console.log(err);
                 this.isLoading = false;
-                alert("Falha ao realizar a busca de usuários.");
+                alert("Falha ao realizar a busca de empréstimos.");
             });
         },
         methods: {
@@ -123,13 +125,13 @@
                 this.isLoading = true;
                 this.$modal.hide('modal-excluir');
                 var id = document.querySelector("#id_emprestimo_deletar").value;
-                axios.delete("http://localhost:8000/api/user/" + id, {
+                axios.delete("http://localhost:8000/api/emprestimo/" + id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 }).then(() => {
-                    axios.get("http://localhost:8000/api/user", {
+                    axios.get("http://localhost:8000/api/emprestimo", {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
