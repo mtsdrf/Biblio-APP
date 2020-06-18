@@ -99,7 +99,10 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                console.log(res);
+                res.data.forEach(function(valor){
+                    valor.dia_emprestimo = valor.dia_emprestimo.split('-')[2] + "/" + valor.dia_emprestimo.split('-')[1] + "/" + valor.dia_emprestimo.split('-')[0];
+                    valor.dia_devolucao  = valor.dia_devolucao.split('-')[2] + "/" + valor.dia_devolucao.split('-')[1] + "/" + valor.dia_devolucao.split('-')[0];
+                });
                 this.emprestimos = res.data;
                 this.isLoading = false;
             }).catch(err => {
@@ -137,7 +140,10 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
-                        console.log(res);
+                        res.data.forEach(function(valor){
+                            valor.dia_emprestimo = valor.dia_emprestimo.split('-')[2] + "/" + valor.dia_emprestimo.split('-')[1] + "/" + valor.dia_emprestimo.split('-')[0];
+                            valor.dia_devolucao  = valor.dia_devolucao.split('-')[2] + "/" + valor.dia_devolucao.split('-')[1] + "/" + valor.dia_devolucao.split('-')[0];
+                        });
                         this.emprestimos = res.data;
                         this.isLoading = false;
                         alert("Deletado com sucesso.");
