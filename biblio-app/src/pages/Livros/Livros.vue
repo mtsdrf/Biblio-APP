@@ -36,6 +36,7 @@
                                         <td>{{ livro.ano }}</td>
                                         <td>{{ livro.autor }}</td>
                                         <td>{{ livro.identificador }}</td>
+
                                         <td style="text-align: center">
                                             <button v-on:click="editar(livro.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
@@ -46,7 +47,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!livros.length" style="text-align:center">
-                                        <td colspan="5">Sem registros</td>
+                                        <td colspan="8">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>

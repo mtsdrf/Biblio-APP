@@ -51,6 +51,7 @@
                                     <label for="identificador" style="margin-bottom: 0px; margin-top: 10px;">Identificador</label>
                                     <div class="controls">
                                         <input type="text" id="identificador" name="identificador" class="form-control" v-model="formdata.identificador" required>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
