@@ -91,7 +91,7 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then((res) => {
-                this.livros = res.data;
+                this.livros = res.data.livros_disponiveis;
                 this.isLoading = false;
             }).catch(() => {
                 alert("Falha ao realizar a busca de livros.");
