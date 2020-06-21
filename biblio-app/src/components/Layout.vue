@@ -14,16 +14,16 @@
                     <h5 class="title">Navegação</h5>
                     <ul class="menu js__accordion">
                         <li>
-                            <router-link to='/clientes'><a class="waves-effect"><i class="menu-icon ti-user"></i><span>Clientes</span></a></router-link>
+                            <router-link to='/clientes'><a class="waves-effect btn active"><i class="menu-icon ti-user"></i><span>Clientes</span></a></router-link>
                         </li>
                         <li>
-                            <router-link to='/livros'><a class="waves-effect"><i class="menu-icon  ti-book"></i><span>Livros</span></a></router-link>
+                            <router-link to='/livros'><a class="waves-effect btn "><i class="menu-icon  ti-book"></i><span>Livros</span></a></router-link>
                         </li>
                         <li>
-                            <router-link to='/usuarios'><a class="waves-effect"><i class="menu-icon ti-bookmark"></i><span>Usuários</span></a></router-link>
+                            <router-link to='/usuarios'><a class="waves-effect btn "><i class="menu-icon ti-bookmark"></i><span>Usuários</span></a></router-link>
                         </li>
                         <li>
-                            <router-link to='/emprestimos'><a class="waves-effect"><i class="menu-icon ti-agenda"></i><span>Empréstimos</span></a></router-link>
+                            <router-link to='/emprestimos'><a class="waves-effect btn"><i class="menu-icon ti-agenda"></i><span>Empréstimos</span></a></router-link>
                         </li>
                         <li>
                             <!--a class="waves-effect parent-item js__control"><i class="menu-icon ti-flag"></i><span>Localização</span><span class="menu-arrow fa fa-angle-down"></span></a>
@@ -111,5 +111,16 @@ export default {
     @import '../assets/css/nprogress.css';
     @import '../assets/css/style.min.css';
     @import '../assets/css/fonts/themify/themify-icons.css';
+
+    .btn {
+  border: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.active, .btn:hover {
+  background-color: #666;
+  color: white;
+}
 
 </style>
