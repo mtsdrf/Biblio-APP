@@ -13,6 +13,7 @@
                     <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo {{ user }}!</h5>
                     <h5 class="title">Navegação</h5>
                     <ul class="menu js__accordion">
+
                         <li :class="[currentPage.includes('clientes') ? activeClass : '', 'nav-item']">
                             <router-link to='/clientes'><a class="waves-effect " ><i class="menu-icon ti-user"></i><span>Clientes</span></a></router-link>
                         </li>
@@ -47,6 +48,7 @@
                         {{ new Date().getFullYear() }}
                     </div>
                 </footer>
+
             </div>
         </div>
 
