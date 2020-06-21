@@ -10,7 +10,7 @@
 
             <div class="content">
                 <div class="navigation">
-                    <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo Usuário!</h5>
+                    <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo {{ user }}!</h5>
                     <h5 class="title">Navegação</h5>
                     <ul class="menu js__accordion">
                         <li>
@@ -77,16 +77,26 @@
 <script>
 import Vue from 'vue';
 import { Plugin } from 'vue-fragment';
+import VueJwtDecode from 'vue-jwt-decode';
 
 Vue.use(Plugin);
 
 export default {
     name: 'Layout',
+    data() {
+        return {
+            user: 'Usuário'
+        }
+    },
     methods: {
         logout() {
             sessionStorage.clear();
             this.$router.replace('/');
         }
+    },
+    created() {
+        var tokenDecoded = VueJwtDecode.decode(sessionStorage.getItem("token"));
+        tokenDecoded === null || tokenDecoded === undefined ? this.user = "Usuário" : this.user = tokenDecoded.name;
     }
 }
 
