@@ -43,12 +43,11 @@
                     </ul>
 
                 </div>
-                 <footer>
-                <div class="frm-footer text-center " style="margin-top:75%">Cocão Sistemas ©
+                <footer>
+                    <div class="frm-footer text-center " style="margin-top:75%">Cocão Sistemas ©
                         {{ new Date().getFullYear() }}
                     </div>
                 </footer>
-
             </div>
         </div>
 
