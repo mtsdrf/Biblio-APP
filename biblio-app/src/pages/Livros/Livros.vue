@@ -19,8 +19,11 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>Editora</th>
-                                        <th>Ano</th>
+                                        <th>Edição</th>
+                                        <th>Local</th>
+                                        <th>Ano</th> 
                                         <th>Autor</th>
+                                       <th>Identificador</th>
                                         <th>Opções</th>
                                     </tr>
                                 </thead>
@@ -28,8 +31,11 @@
                                     <tr v-for="livro in livros" :key="livro.id">
                                         <td>{{ livro.nome }}</td>
                                         <td>{{ livro.editora }}</td>
+                                        <td>{{ livro.edicao }}</td>
+                                        <td>{{ livro.local }}</td>
                                         <td>{{ livro.ano }}</td>
                                         <td>{{ livro.autor }}</td>
+                                        <td>{{ livro.identificador }}</td>
                                         <td style="text-align: center">
                                             <button v-on:click="editar(livro.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
