@@ -23,7 +23,8 @@
                                         <th>Local</th>
                                         <th>Ano</th> 
                                         <th>Autor</th>
-                                       <th>Identificador</th>
+                                        <th>Identificador</th>
+                                        <th>Disponibilidade</th>
                                         <th>Opções</th>
                                     </tr>
                                 </thead>
@@ -36,6 +37,12 @@
                                         <td>{{ livro.ano }}</td>
                                         <td>{{ livro.autor }}</td>
                                         <td>{{ livro.identificador }}</td>
+                                        <td v-if="livro.emprestado === 1">
+                                            <button type="button" class="btn btn-danger btn-block disabled">Emprestado</button>
+                                        </td>
+                                        <td v-if="livro.emprestado === 0">
+                                            <button type="button" class="btn btn-success btn-block disbled">Disponível</button>
+                                        </td>
 
                                         <td style="text-align: center">
                                             <button v-on:click="editar(livro.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
@@ -47,7 +54,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!livros.length" style="text-align:center">
-                                        <td colspan="8">Sem registros</td>
+                                        <td colspan="9">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -105,7 +112,7 @@
                 }
             }).then(res => {
                 console.log(res);
-                this.livros = res.data;
+                this.livros = res.data.livros;
                 this.isLoading = false;
             }).catch(err => {
                 console.log(err);
