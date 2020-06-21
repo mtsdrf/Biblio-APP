@@ -24,13 +24,13 @@
                 <div class="col-lg-6 col-sm-12 col-xs-12">
                     <div class="box-content">
                         <h4 class="box-title text-center">Livros Emprestados X Livros Disponíveis</h4>
-                        <highcharts :options="EmprestadosXDisponiveis" ref="EmprestadosXDisponiveis"></highcharts>
+                        <highcharts :options="EmprestadosXDisponiveis"></highcharts>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12">
                     <div class="box-content">
                         <h4 class="box-title text-center">Livros por Mês</h4>
-                        <highcharts :options="LivrosXMes" :updateArgs="LivrosXMes"></highcharts>
+                        <highcharts :options="LivrosXMes"></highcharts>
                     </div>
                 </div>
             </div>
@@ -44,50 +44,6 @@
     import axios from 'axios';
     import Loader from '@/components/Loader';
 
-    var EmprestadosXDisponiveis = {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-            }
-        },
-        series: [{
-            name: 'Livros',
-            colorByPoint: true,
-            data: [{
-                name: 'Emprestados',
-                y: 75,
-            }, {
-                name: 'Disponíveis',
-                y: 25
-            }]
-        }]
-    }
-
     export default {
         name: 'HomePage',
         components: {
@@ -99,7 +55,49 @@
                 isLoading: false,
                 LivrosAtasados: 0,
                 LivrosEmprestados: 0,
-                EmprestadosXDisponiveis,
+                EmprestadosXDisponiveis: {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Livros',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Emprestados',
+                            y: 1,
+                        }, {
+                            name: 'Disponíveis',
+                            y: 1
+                        }]
+                    }]
+                },
                 LivrosXMes: {
                     chart: {
                         type: 'column'
@@ -149,11 +147,23 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                console.log(res.data)
-                this.LivrosAtasados            = res.data.atrasos;
-                this.LivrosEmprestados         = res.data.emprestados;
-                this.LivrosXMes.categories     = res.data.livrosmes.map((item) => { return item.mes });
-                this.LivrosXMes.series[0].data = res.data.livrosmes.map((item) => { return item.livros });
+                //Popula cards do topo
+                this.LivrosAtasados    = res.data.atrasos;
+                this.LivrosEmprestados = res.data.emprestados;
+                
+                //Popula gráfico Livros X Mês
+                this.LivrosXMes.xAxis.categories = res.data.livrosmes.map((item) => { return item.mes });
+                this.LivrosXMes.series[0].data   = res.data.livrosmes.map((item) => { return item.livros });
+                
+                //Popula gráfico Livros emprestados X Livros disponiveis
+                this.EmprestadosXDisponiveis.series[0].data = [{
+                    name: 'Emprestados',
+                    y: res.data.emprestados,
+                }, {
+                    name: 'Disponíveis',
+                    y: res.data.disponivel
+                }];
+
                 this.isLoading = false;
             }).catch(err => {
                 console.log(err);
