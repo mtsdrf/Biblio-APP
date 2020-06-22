@@ -18,14 +18,12 @@
                                 <thead>
                                     <tr>
                                         <th>Número</th>
-                                        <th>Tipos de Livro</th>
                                         <th>Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-sgbds">
                                     <tr v-for="estante in estantes" :key="estante.id">
                                         <td>{{ estante.numero }}</td>
-                                        <td>{{ estante.tipo_livro }}</td>
                                         <td style="text-align: center">
                                             <button v-on:click="editar(estante.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
@@ -36,7 +34,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!estantes.length" style="text-align:center">
-                                        <td colspan="3">Sem registros</td>
+                                        <td colspan="2">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>

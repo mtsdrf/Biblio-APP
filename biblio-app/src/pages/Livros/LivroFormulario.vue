@@ -46,12 +46,22 @@
                                     <div class="controls">
                                         <input type="number" id="ano" name="ano" class="form-control" v-model="formdata.ano" required>
                                     </div>
+                                    <br>
                                 </div>
                                 <div class="col-md-9">
-                                    <label for="identificador" style="margin-bottom: 0px; margin-top: 10px;">Identificador</label>
+                                    <h4 style="margin-bottom: 0px; margin-top: 10px;">Localização</h4>
+                                    <br>
+                                    <label for="corredor" style="margin-bottom: 0px; margin-top: 10px;">Corredor</label>
                                     <div class="controls">
-                                        <input type="text" id="identificador" name="identificador" class="form-control" v-model="formdata.identificador" required>
-                                        
+                                        <v-select class="form-control" :options="this.corredores" :reduce="corredor => corredor.id" label="letra" v-model="formdata.id_corredor" required></v-select>
+                                    </div>
+                                    <label for="estante" style="margin-bottom: 0px; margin-top: 10px;">Estante</label>
+                                    <div class="controls">
+                                        <v-select class="form-control" :options="this.estantes" :reduce="estante => estante.id" label="numero" v-model="formdata.id_estante" required></v-select>
+                                    </div>
+                                    <label for="prateleira" style="margin-bottom: 0px; margin-top: 10px;">Prateleira</label>
+                                    <div class="controls">
+                                        <v-select class="form-control" :options="this.prateleiras" :reduce="prateleira => prateleira.id" label="numero" v-model="formdata.id_prateleira" required></v-select>
                                     </div>
                                 </div>
                                 <div class="col-md-9 margin-bottom-0" style="margin-top: 15px">
@@ -84,13 +94,49 @@
         },
         data () {
             return {
-                formdata:{ nome: '', autor: '', local: '', edicao: '', editora: '', ano: '', identificador: '' },
+                corredores: [],
+                estantes: [],
+                prateleiras: [],
+                formdata:{ nome: '', autor: '', local: '', edicao: '', editora: '', ano: '', identificador: '', id_corredor:'', id_estante:'', id_prateleira:'', },
                 isLoading: false
             }
         },
         created() {
+            this.isLoading = true;
+            axios.get("http://localhost:8000/api/corredor", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.corredores = res.data;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de livros.");
+            });
+            axios.get("http://localhost:8000/api/estante", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.estantes = res.data;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de clientes.");
+            });
+            axios.get("http://localhost:8000/api/prateleira", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                this.prateleiras = res.data;
+                this.isLoading = false;
+            }).catch(() => {
+                alert("Falha ao realizar a busca de clientes.");
+                this.isLoading = false;
+            });
+
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
-                this.isLoading = true;
                 axios.get("http://localhost:8000/api/livro/" + this.$route.params.id, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -117,6 +163,7 @@
             adicionar: function () {
                 this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
+                    this.formdata.identificador = this.formdata.corredor + "-" + this.formdata.estante + "." + this.formdata.prateleira;
                     axios.post('http://localhost:8000/api/livro', this.formdata, {
                         headers: {
                             'Content-Type': 'application/json',
