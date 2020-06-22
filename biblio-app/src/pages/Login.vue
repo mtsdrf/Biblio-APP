@@ -1,7 +1,7 @@
 <template>
     <div id="app" style="height: 100vh;">
         <div id="single-wrapper">
-            <form class="frm-single" @submit.prevent="submitform">
+            <form class="frm-single" style="position: absolute;top: 42%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);" @submit.prevent="submitform">
                 <div class="inside">
                     <div class="title"><strong>Biblio</strong></div>
                     <div class="frm-title">Login<br></div>
