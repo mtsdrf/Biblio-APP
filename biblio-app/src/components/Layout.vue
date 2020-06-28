@@ -27,24 +27,20 @@
                             <router-link to='/emprestimos'><a class="waves-effect"><i class="menu-icon ti-agenda"></i><span>Empréstimos</span></a></router-link>
                         </li>
                         <li>
-                            <!--a class="waves-effect parent-item js__control"><i class="menu-icon ti-flag"></i><span>Localização</span><span class="menu-arrow fa fa-angle-down"></span></a>
-                            <ul class="sub-menu js__content"-->
-                                <li :class="[currentPage.includes('corredores') ? activeClass : '', 'nav-item']">
-                                    <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon  ti-layers-alt"></i><span>Corredores</span></a></router-link>
-                                </li>
-                                <li :class="[currentPage.includes('estantes') ? activeClass : '', 'nav-item']">
-                                    <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-direction-alt"></i><span>Estantes</span></a></router-link>
-                                </li>
-                                <li :class="[currentPage.includes('prateleiras') ? activeClass : '', 'nav-item']"> 
-                                    <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-view-list"></i><span>Prateleiras</span></a></router-link>
-                                </li>
-                            <!--/ul>
-                        </li-->
+                        <li :class="[currentPage.includes('corredores') ? activeClass : '', 'nav-item']">
+                            <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon  ti-layers-alt"></i><span>Corredores</span></a></router-link>
+                        </li>
+                        <li :class="[currentPage.includes('estantes') ? activeClass : '', 'nav-item']">
+                            <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-direction-alt"></i><span>Estantes</span></a></router-link>
+                        </li>
+                        <li :class="[currentPage.includes('prateleiras') ? activeClass : '', 'nav-item']"> 
+                            <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-view-list"></i><span>Prateleiras</span></a></router-link>
+                        </li>
                     </ul>
 
                 </div>
                 <footer>
-                    <div class="frm-footer text-center " style="margin-top:75%">Cocão Sistemas ©
+                    <div class="frm-footer text-center " style="margin-top:50%">Cocão Sistemas ©
                         {{ new Date().getFullYear() }}
                     </div>
                 </footer>
@@ -59,8 +55,8 @@
                 <div class="ico-item">
                     <i class="ti-user"></i>
                     <ul class="sub-ico-item">
-                        <li><a href="#">Configurações</a></li>
-                        <li><a v-on:click="logout()">Sair</a></li>
+                        <!--li><a href="#">Configurações</a></li-->
+                        <li style="cursor: pointer"><a v-on:click="logout()">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,10 +64,7 @@
 
         <div id="wrapper">
             <div class="main-content">
-
                 <slot></slot>
-
-
             </div>
         </div>
     </fragment>
@@ -87,10 +80,9 @@ Vue.use(Plugin);
 export default {
     name: 'Layout',
     data() {
-
         return {
             user: 'Usuário',
-            activeClass: 'active',     
+            activeClass: 'active current',     
         }
     },
     computed:{
@@ -107,17 +99,11 @@ export default {
     created() {
         var tokenDecoded = VueJwtDecode.decode(sessionStorage.getItem("token"));
         tokenDecoded === null || tokenDecoded === undefined ? this.user = "Usuário" : this.user = tokenDecoded.name;
-    },
-  
-    
+    },   
 }
-       
-
-
 </script>
 
 <style>
-
     @import '../assets/css/fonts/font-awesome/css/font-awesome.min.css';
     @import '../assets/css/bootstrap.min.css';
     @import '../assets/css/nprogress.css';
@@ -126,11 +112,11 @@ export default {
 
 .active{
     opacity:1;
-    margin: 12px;
     transition: all 0.25s;
-
-
 }
 
+.navigation .menu>li.active>a{
+    background: "#f5f5f5"!important;
+}
 
 </style>
