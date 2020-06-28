@@ -81,7 +81,10 @@
                 })
                 .catch((err) => {
                     this.isLoading = false;
-                    this.mostra_modal_resposta(err.response.data.status);
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         },
@@ -105,7 +108,10 @@
                         this.$router.replace('/corredores');
                     }).catch((err) => {
                         this.isLoading = false;
-                        this.mostra_modal_resposta(err.response.data.status);
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
                     axios.put('http://localhost:8000/api/corredor/' + this.$route.params.id, this.formdata, {
@@ -119,7 +125,10 @@
                         this.$router.replace('/corredores');
                     }).catch((err) => {
                         this.isLoading = false;
-                        this.mostra_modal_resposta(err.response.data.status);
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 }
             }

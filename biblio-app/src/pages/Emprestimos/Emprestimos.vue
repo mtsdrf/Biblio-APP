@@ -122,8 +122,11 @@
                 this.emprestimos = res.data;
                 this.isLoading = false;
             }).catch(err => {
-                this.mostra_modal_resposta(err.response.data.status);
                 this.isLoading = false;
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
         },
         methods: {
@@ -169,11 +172,17 @@
                         this.mostra_modal_resposta("Deletado com sucesso.");
                     }).catch((err) => {
                         this.isLoading = false;
-                        this.mostra_modal_resposta(err.response.data.status);
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 }).catch((err) => {
                     this.isLoading = false;
-                    this.mostra_modal_resposta(err.response.data.status);
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         }

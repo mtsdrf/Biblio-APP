@@ -82,7 +82,7 @@
                 </button>
             </div>
         </modal>
-        <modal name="modal-resposta" width="400px" height="200px">
+        <modal name="modal-resposta" width="400px" height="230px">
             <div style="text-align:center">
                 <h3>Atenção!</h3>
             </div>
@@ -127,7 +127,6 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                console.log(res);
                 this.livros = res.data.livros;
                 this.isLoading = false;
             }).catch(err => {
@@ -178,7 +177,10 @@
                     });
                 }).catch((err) => {
                     this.isLoading = false;
-                    this.mostra_modal_resposta(err.response.data.status);
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         }

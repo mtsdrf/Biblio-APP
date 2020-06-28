@@ -126,8 +126,11 @@
                 }
             }).then((res) => {
                 this.corredores = res.data;
-            }).catch(() => {
-                alert("Falha ao realizar a busca de livros.");
+            }).catch((err) => {
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
             axios.get("http://localhost:8000/api/estante", {
                 headers: {
@@ -136,8 +139,11 @@
                 }
             }).then((res) => {
                 this.estantes = res.data;
-            }).catch(() => {
-                alert("Falha ao realizar a busca de clientes.");
+            }).catch((err) => {
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
             axios.get("http://localhost:8000/api/prateleira", {
                 headers: {
@@ -147,9 +153,12 @@
             }).then((res) => {
                 this.prateleiras = res.data;
                 this.isLoading = false;
-            }).catch(() => {
-                alert("Falha ao realizar a busca de clientes.");
+            }).catch((err) => {
                 this.isLoading = false;
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
 
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
@@ -170,7 +179,10 @@
                 })
                 .catch((err) => {
                     this.isLoading = false;
-                    this.mostra_modal_resposta(err.response.data.status);
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         },
@@ -195,7 +207,10 @@
                         this.$router.replace('/livros');
                     }).catch((err) => {
                         this.isLoading = false;
-                        this.mostra_modal_resposta(err.response.data.status);
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
                     axios.put('http://localhost:8000/api/livro/' + this.$route.params.id, this.formdata, {
@@ -209,7 +224,10 @@
                         this.$router.replace('/livros');
                     }).catch((err) => {
                         this.isLoading = false;
-                        this.mostra_modal_resposta(err.response.data.status);
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 }
             }
