@@ -12,40 +12,29 @@
                                 <router-link to='/usuario-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                             </div>
                         </div>
-                        <div class="table-responsive" data-pattern="priority-columns">
-                            <table id="example" class="table table-small-font table-bordered table-striped"
-                                style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>CPF</th>
-                                        <th>RG</th>
-                                        <th>Endereço</th>
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="usuario in usuarios" :key="usuario.id">
-                                        <td>{{ usuario.name }}</td>
-                                        <td>{{ usuario.email }}</td>
-                                        <td>{{ usuario.cpf }}</td>
-                                        <td>{{ usuario.rg }}</td>
-                                        <td>{{ usuario.endereco }}</td>
-                                        <td style="text-align: center">
-                                            <button v-on:click="editar(usuario.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
-                                                <i class="ico ti-pencil-alt"></i>
-                                            </button>
-                                            <button v-on:click="mostra_modal_excluir('modal-excluir', usuario)" type="button" class="btn btn-danger waves-effect waves-light">
-                                                <i class="ico ti-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="!usuarios.length" style="text-align:center">
-                                        <td colspan="6">Sem registros</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="table-responsive text-center">
+                            <vue-good-table
+                                :columns="columns"
+                                :rows="rows"
+                                :fixed-header="true"
+                                :search-options="{
+                                  placeholder: 'Pesquisar...',
+                                  enabled: true
+                                }">
+                                <template slot="table-row" slot-scope="props">
+                                    <span v-if="props.column.field == 'opcoes'">
+                                      <button v-on:click="editar(props.row.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                            <i class="ico ti-pencil-alt"></i>
+                                        </button>
+                                        <button v-on:click="mostra_modal_excluir('modal-excluir', props.row)" type="button" class="btn btn-danger waves-effect waves-light">
+                                            <i class="ico ti-trash"></i>
+                                        </button>
+                                    </span>
+                                </template>
+                                <div slot="emptystate">
+                                  Sem registros.
+                                </div>
+                            </vue-good-table>
                         </div>
                     </div>
                 </div>
@@ -102,7 +91,35 @@
         },
         data () {
             return {
-                usuarios: [],
+                columns: [
+                    {
+                        label: 'Nome', 
+                        field: 'name'
+                    },
+                    {
+                        label: 'E-mail', 
+                        field: 'email'
+                    },
+                    {
+                        label: 'CPF', 
+                        field: 'cpf'
+                    },
+                    {
+                        label: 'RG',
+                        field: 'rg'
+                    },
+                    {
+                        label: 'Endereço', 
+                        field: 'endereco'
+                    },
+                    {
+                        label: 'Opções',
+                        field: 'opcoes',
+                        sortable: false,
+                        html: true,
+                    }
+                ],
+                rows: [],
                 isLoading: false,
                 mensagem_resposta: ''
             }
@@ -115,7 +132,7 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                this.usuarios = res.data;
+                this.rows = res.data;
                 this.isLoading = false;
             }).catch(err => {
                 this.isLoading = false;
@@ -159,7 +176,7 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
-                        this.usuarios = res.data;
+                        this.rows = res.data;
                         this.isLoading = false;
                         this.mostra_modal_resposta("Deletado com sucesso.");
                     }).catch((err) => {
