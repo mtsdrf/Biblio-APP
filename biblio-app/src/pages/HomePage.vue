@@ -2,7 +2,7 @@
     <div>
         <layout>
             <div class="row small-spacing">
-                <div class="col-lg-6 col-md-6 col-sm-5 col-xs-5">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="box-content">
                         <div class="statistics-box">
                             <h4 style="font-size: 16px; font-weight: 600" class="text">Livros com Atraso</h4>
@@ -10,7 +10,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-7 col-xs-7">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="box-content">
                         <div class="statistics-box">
                             <h4 style="font-size: 16px; font-weight: 600" class="text">Livros Emprestados</h4>
