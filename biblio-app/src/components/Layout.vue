@@ -5,7 +5,7 @@
                 <router-link to='/home'>
                     <a class="logo"><i class="ico ti-book"></i><strong>Biblio</strong></a>
                 </router-link>
-                <button type="button" class="button-close fa fa-times js__menu_close"></button>
+                <button type="button" class="button-close fa fa-times js__menu_close" v-on:click="abreMenu(false)"></button>
             </header>
 
             <div class="content">
@@ -48,9 +48,9 @@
         </div>
 
         <div class="fixed-navbar">
-            <!--<div class="pull-left">
-                <button type="button" style="background-color: #008629;" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
-            </div>-->
+            <div class="pull-left">
+                <button type="button" style="background-color: #008629;" class="menu-mobile-button ti-menu js__menu_mobile" v-on:click="abreMenu(true)"></button>
+            </div>
             <div class="pull-right">
                 <div class="ico-item">
                     <i class="ti-user"></i>
@@ -94,9 +94,17 @@ export default {
         logout() {
             sessionStorage.clear();
             this.$router.replace('/');
+        },
+
+        abreMenu(option) {
+            if(option === true)
+                document.querySelector("html").className = "menu-active";
+            else
+                document.querySelector("html").className = "";
         }
     },
     created() {
+        this.abreMenu(false);
         var tokenDecoded = VueJwtDecode.decode(sessionStorage.getItem("token"));
         tokenDecoded === null || tokenDecoded === undefined ? this.user = "Usuário" : this.user = tokenDecoded.name;
     },   
@@ -117,6 +125,12 @@ export default {
 
 .navigation .menu>li.active>a{
     background: "#f5f5f5"!important;
+}
+
+@media only screen and (max-width: 600px) {
+    .frm-footer {
+        margin-top: 80%!important;
+    }
 }
 
 </style>
