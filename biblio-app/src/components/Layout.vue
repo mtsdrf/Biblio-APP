@@ -131,6 +131,11 @@ export default {
     .frm-footer {
         margin-top: 80%!important;
     }
+
+    #loading-content {
+        left: 57%!important;
+        top: 52%!important;
+    }
 }
 
 </style>
