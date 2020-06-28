@@ -17,11 +17,10 @@
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Código</th>
+                                        <th>ID</th>
                                         <th>Nome</th>
                                         <th>Editora</th>
                                         <th>Edição</th>
-                                        <th>Local</th>
                                         <th>Ano</th> 
                                         <th>Autor</th>
                                         <th>Localização</th>
@@ -35,15 +34,14 @@
                                         <td>{{ livro.nome }}</td>
                                         <td>{{ livro.editora }}</td>
                                         <td>{{ livro.edicao }}</td>
-                                        <td>{{ livro.local }}</td>
                                         <td>{{ livro.ano }}</td>
                                         <td>{{ livro.autor }}</td>
                                         <td>{{ livro.corredor + "-" + livro.estante + "." + livro.prateleira}}</td>
                                         <td v-if="livro.emprestado === 1">
-                                            <button type="button" class="btn btn-danger btn-block disabled">Emprestado</button>
+                                            <button type="button" class="btn btn-danger btn-block"><i class="menu-icon ti-close"></i></button>
                                         </td>
                                         <td v-if="livro.emprestado === 0">
-                                            <button type="button" class="btn btn-success btn-block disbled">Disponível</button>
+                                            <button type="button" class="btn btn-success btn-block disbled"><i class="menu-icon ti-check-box"></i></button>
                                         </td>
 
                                         <td style="text-align: center">
