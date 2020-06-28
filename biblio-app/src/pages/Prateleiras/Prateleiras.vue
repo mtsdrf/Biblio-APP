@@ -62,6 +62,21 @@
                 </button>
             </div>
         </modal>
+        <modal name="modal-resposta" width="400px" height="200px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -80,7 +95,8 @@
         data () {
             return {
                 prateleiras: [],
-                isLoading: false
+                isLoading: false,
+                mensagem_resposta: ''
             }
         },
         created() {
@@ -91,13 +107,14 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then((res) => {
-                console.log(res); 
                 this.prateleiras = res.data;
                 this.isLoading = false;
             }).catch((err) => {
-                console.log(err);
                 this.isLoading = false;
-                alert("Falha ao realizar a busca de prateleiras.");
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
         },
         methods: {
@@ -107,6 +124,11 @@
 
             mostra_modal_excluir: function (modal_nome, prateleira){
                 this.$modal.show(modal_nome, { prateleira });
+            },
+
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
             },
 
             set_id_prateleira: function(event) {
@@ -129,19 +151,22 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then((res) => {
-                        console.log(res);
                         this.prateleiras = res.data;
                         this.isLoading = false;
-                        alert("Deletado com sucesso.");
+                        this.mostra_modal_resposta("Deletado com sucesso.");
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Deletado com sucesso, porém houve uma falha na busca dos dados atualizados.");
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 }).catch((err) => {
-                    console.log(err);
                     this.isLoading = false;
-                    alert("Falha ao Deletar.");
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         }

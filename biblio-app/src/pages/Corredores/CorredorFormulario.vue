@@ -5,13 +5,13 @@
                 <div class="col-lg-12 col-xs-12">
                     <div class="box-content" style="padding: 15px">
                         <div class="row" style="margin-bottom: 5px;">
-                            <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <h4>Formulário de Corredores</h4>
                             </div>
                         </div>
                         <div class="form-group row">
                             <form @submit.prevent="adicionar">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="letra" style="margin-bottom: 0px; margin-top: 10px;">Letra</label>
                                     <div class="controls">
                                         <input type="text" id="letra" name="letra" class="form-control" v-model="formdata.letra" autofocus required>
@@ -30,6 +30,21 @@
                 </div>
             </div>
         </layout>
+        <modal name="modal-resposta" width="400px" height="200px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -48,7 +63,8 @@
         data () {
             return {
                 formdata:{ letra: '' },
-                isLoading: false
+                isLoading: false,
+                mensagem_resposta: ''
             }
         },
         created() {
@@ -64,13 +80,20 @@
                     this.isLoading = false;
                 })
                 .catch((err) => {
-                    console.log(err);
                     this.isLoading = false;
-                    alert("Falha ao realizar a busca de corredores.");
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         },
         methods: {
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
+            },
+            
             adicionar: function () {
                 this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
@@ -79,15 +102,16 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then((res) => {
+                    }).then(() => {
                         this.isLoading = false;
-                        console.log(res);
-                        alert("Cadastro realizado com sucesso.");
+                        this.mostra_modal_resposta("Cadastro realizado com sucesso.");
                         this.$router.replace('/corredores');
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Falha ao realizar o cadastro.");
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
                     axios.put('http://localhost:8000/api/corredor/' + this.$route.params.id, this.formdata, {
@@ -95,15 +119,16 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then((res) => {
+                    }).then(() => {
                         this.isLoading = false;
-                        console.log(res);
-                        alert("Alteração realizada com sucesso.");
+                        this.mostra_modal_resposta("Alteração realizada com sucesso.");
                         this.$router.replace('/corredores');
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Falha ao realizar a alteração dos dados.");
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 }
             }

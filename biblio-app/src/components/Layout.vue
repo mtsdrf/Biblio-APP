@@ -5,7 +5,7 @@
                 <router-link to='/home'>
                     <a class="logo"><i class="ico ti-book"></i><strong>Biblio</strong></a>
                 </router-link>
-                <button type="button" class="button-close fa fa-times js__menu_close"></button>
+                <button type="button" class="button-close fa fa-times js__menu_close" v-on:click="abreMenu(false)"></button>
             </header>
 
             <div class="content">
@@ -27,39 +27,35 @@
                             <router-link to='/emprestimos'><a class="waves-effect"><i class="menu-icon ti-agenda"></i><span>Empréstimos</span></a></router-link>
                         </li>
                         <li>
-                            <!--a class="waves-effect parent-item js__control"><i class="menu-icon ti-flag"></i><span>Localização</span><span class="menu-arrow fa fa-angle-down"></span></a>
-                            <ul class="sub-menu js__content"-->
-                                <li :class="[currentPage.includes('corredores') ? activeClass : '', 'nav-item']">
-                                    <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon  ti-layers-alt"></i><span>Corredores</span></a></router-link>
-                                </li>
-                                <li :class="[currentPage.includes('estantes') ? activeClass : '', 'nav-item']">
-                                    <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-direction-alt"></i><span>Estantes</span></a></router-link>
-                                </li>
-                                <li :class="[currentPage.includes('prateleiras') ? activeClass : '', 'nav-item']"> 
-                                    <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-view-list"></i><span>Prateleiras</span></a></router-link>
-                                </li>
-                            <!--/ul>
-                        </li-->
+                        <li :class="[currentPage.includes('corredores') ? activeClass : '', 'nav-item']">
+                            <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon  ti-layers-alt"></i><span>Corredores</span></a></router-link>
+                        </li>
+                        <li :class="[currentPage.includes('estantes') ? activeClass : '', 'nav-item']">
+                            <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-direction-alt"></i><span>Estantes</span></a></router-link>
+                        </li>
+                        <li :class="[currentPage.includes('prateleiras') ? activeClass : '', 'nav-item']"> 
+                            <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-view-list"></i><span>Prateleiras</span></a></router-link>
+                        </li>
                     </ul>
                 </div>
-                <div>
-                    <footer class="text-center" id="footer">
-                        Cocão Sistemas ©{{ new Date().getFullYear() }}
-                    </footer>
-                </div>
+                <footer>
+                    <div class="frm-footer text-center " style="margin-top:50%">Cocão Sistemas ©
+                        {{ new Date().getFullYear() }}
+                    </div>
+                </footer>
             </div>
         </div>
 
         <div class="fixed-navbar">
-            <!--<div class="pull-left">
-                <button type="button" style="background-color: #008629;" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
-            </div>-->
+            <div class="pull-left">
+                <button type="button" style="background-color: #008629;" class="menu-mobile-button ti-menu js__menu_mobile" v-on:click="abreMenu(true)"></button>
+            </div>
             <div class="pull-right">
                 <div class="ico-item">
                     <i class="ti-user"></i>
                     <ul class="sub-ico-item">
-                        <li><a href="#">Configurações</a></li>
-                        <li><a v-on:click="logout()">Sair</a></li>
+                        <!--li><a href="#">Configurações</a></li-->
+                        <li style="cursor: pointer"><a v-on:click="logout()">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,10 +63,7 @@
 
         <div id="wrapper">
             <div class="main-content">
-
                 <slot></slot>
-
-
             </div>
         </div>
     </fragment>
@@ -86,10 +79,9 @@ Vue.use(Plugin);
 export default {
     name: 'Layout',
     data() {
-
         return {
             user: 'Usuário',
-            activeClass: 'active',     
+            activeClass: 'active current',     
         }
     },
     computed:{
@@ -101,22 +93,24 @@ export default {
         logout() {
             sessionStorage.clear();
             this.$router.replace('/');
+        },
+
+        abreMenu(option) {
+            if(option === true)
+                document.querySelector("html").className = "menu-active";
+            else
+                document.querySelector("html").className = "";
         }
     },
     created() {
+        this.abreMenu(false);
         var tokenDecoded = VueJwtDecode.decode(sessionStorage.getItem("token"));
         tokenDecoded === null || tokenDecoded === undefined ? this.user = "Usuário" : this.user = tokenDecoded.name;
-    },
-  
-    
+    },   
 }
-       
-
-
 </script>
 
 <style>
-
     @import '../assets/css/fonts/font-awesome/css/font-awesome.min.css';
     @import '../assets/css/bootstrap.min.css';
     @import '../assets/css/nprogress.css';
@@ -125,15 +119,22 @@ export default {
 
 .active{
     opacity:1;
-    margin: 12px;
     transition: all 0.25s;
 }
-#footer{
-    width: 100%;
-    height: 5%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+
+.navigation .menu>li.active>a{
+    background: "#f5f5f5"!important;
+}
+
+@media only screen and (max-width: 600px) {
+    .frm-footer {
+        margin-top: 80%!important;
+    }
+
+    #loading-content {
+        left: 57%!important;
+        top: 52%!important;
+    }
 }
 
 </style>

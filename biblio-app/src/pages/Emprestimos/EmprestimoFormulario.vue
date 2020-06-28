@@ -5,31 +5,31 @@
                 <div class="col-lg-12 col-xs-12">
                     <div class="box-content" style="padding: 15px">
                         <div class="row" style="margin-bottom: 5px;">
-                            <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <h4>Formulário de Empréstimos</h4>
                             </div>
                         </div>
                         <div class="form-group row">
                             <form @submit.prevent="adicionar">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="dia_emprestimo" style="margin-bottom: 0px; margin-top: 10px;">Data de Empréstimo</label>
                                     <div class="controls">
                                         <input type="date" id="dia_emprestimo" name="dia_emprestimo" class="form-control" v-model="formdata.dia_emprestimo" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="dia_devolucao" style="margin-bottom: 0px; margin-top: 10px;">Data de Devolução</label>
                                     <div class="controls">
                                         <input type="date" id="dia_devolucao" name="dia_devolucao" class="form-control" v-model="formdata.dia_devolucao" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="id_cliente">Cliente</label>
                                     <div class="controls">
                                         <v-select class="form-control" :options="this.clientes" :reduce="cliente => cliente.id" label="nome" v-model="formdata.id_cliente" required></v-select>
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="id_livro">Livro</label>
                                     <div class="controls">
                                         <v-select class="form-control" :options="this.livros" :reduce="livro => livro.id" label="nome" v-model="formdata.id_livro" required></v-select>
@@ -49,6 +49,21 @@
                 </div>
             </div>
         </layout>
+        <modal name="modal-resposta" width="400px" height="200px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -69,7 +84,8 @@
                 livros: [],
                 clientes: [],
                 formdata:{ dia_devolucao: '', dia_emprestimo: '', id_cliente: '', id_livro: '' },
-                isLoading: false
+                isLoading: false,
+                mensagem_resposta: ''
             }
         },
         created() {
@@ -81,8 +97,11 @@
                 }
             }).then((res) => {
                 this.clientes = res.data;
-            }).catch(() => {
-                alert("Falha ao realizar a busca de clientes.");
+            }).catch((err) => {
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
 
             axios.get("http://localhost:8000/api/livro", {
@@ -93,9 +112,12 @@
             }).then((res) => {
                 this.livros = res.data.livros_disponiveis;
                 this.isLoading = false;
-            }).catch(() => {
-                alert("Falha ao realizar a busca de livros.");
+            }).catch((err) => {
                 this.isLoading = false;
+                if(err.response.status === 404)
+                    this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                else
+                    this.mostra_modal_resposta(err.response.data.status);
             });
             
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
@@ -112,13 +134,20 @@
                     this.isLoading = false;
                 })
                 .catch((err) => {
-                    console.log(err);
                     this.isLoading = false;
-                    alert("Falha ao realizar a busca de empréstimos.");
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         },
         methods: {
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
+            },
+            
             adicionar: function () {
                 this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
@@ -127,15 +156,16 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then((res) => {
+                    }).then(() => {
                         this.isLoading = false;
-                        console.log(res);
-                        alert("Cadastro realizado com sucesso.");
+                        this.mostra_modal_resposta("Cadastro realizado com sucesso.");
                         this.$router.replace('/emprestimos');
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Falha ao realizar o cadastro.");
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
                     axios.put('http://localhost:8000/api/emprestimo/' + this.$route.params.id, this.formdata, {
@@ -143,15 +173,16 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then((res) => {
+                    }).then(() => {
                         this.isLoading = false;
-                        console.log(res);
-                        alert("Alteração realizada com sucesso.");
+                        this.mostra_modal_resposta("Alteração realizada com sucesso.");
                         this.$router.replace('/emprestimos');
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Falha ao realizar a alteração dos dados.");
+                        if(err.response.status === 404)
+                            this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                        else
+                            this.mostra_modal_resposta(err.response.data.status);
                     });
                 }
             }

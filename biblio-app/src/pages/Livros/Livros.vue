@@ -17,11 +17,10 @@
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Código</th>
+                                        <th>ID</th>
                                         <th>Nome</th>
                                         <th>Editora</th>
                                         <th>Edição</th>
-                                        <th>Local</th>
                                         <th>Ano</th> 
                                         <th>Autor</th>
                                         <th>Localização</th>
@@ -35,15 +34,14 @@
                                         <td>{{ livro.nome }}</td>
                                         <td>{{ livro.editora }}</td>
                                         <td>{{ livro.edicao }}</td>
-                                        <td>{{ livro.local }}</td>
                                         <td>{{ livro.ano }}</td>
                                         <td>{{ livro.autor }}</td>
                                         <td>{{ livro.corredor + "-" + livro.estante + "." + livro.prateleira}}</td>
                                         <td v-if="livro.emprestado === 1">
-                                            <label for="disponibilidade" class="btn bg-danger btn-block text-white">Emprestado</label>
+                                            <button type="button" class="btn btn-danger btn-block"><i class="menu-icon ti-close"></i></button>
                                         </td>
                                         <td v-if="livro.emprestado === 0">
-                                            <label for="disponibilidade" class="btn bg-success btn-block text-white">Disponível</label>
+                                            <button type="button" class="btn btn-success btn-block disbled"><i class="menu-icon ti-check-box"></i></button>
                                         </td>
 
                                         <td style="text-align: center">
@@ -84,6 +82,21 @@
                 </button>
             </div>
         </modal>
+        <modal name="modal-resposta" width="400px" height="230px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -102,7 +115,8 @@
         data () {
             return {
                 livros: [],
-                isLoading: false
+                isLoading: false,
+                mensagem_resposta: ''
             }
         },
         created() {
@@ -113,13 +127,11 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                console.log(res);
                 this.livros = res.data.livros;
                 this.isLoading = false;
             }).catch(err => {
-                console.log(err);
+                this.mostra_modal_resposta(err.response.data.status);
                 this.isLoading = false;
-                alert("Falha ao realizar a busca de livros.");
             });
         },
         methods: {
@@ -129,6 +141,11 @@
             
             mostra_modal_excluir: function (modal_nome, livro){
                 this.$modal.show(modal_nome, { livro });
+            },
+
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
             },
 
             set_id_livro: function(event) {
@@ -151,19 +168,19 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
-                        console.log(res);
                         this.livros = res.data;
                         this.isLoading = false;
-                        alert("Deletado com sucesso.");
-                    }).catch(err => {
+                        this.mostra_modal_resposta("Deletado com sucesso.");
+                    }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Deletado com sucesso, porém houve uma falha na busca dos dados atualizados.");
+                        this.mostra_modal_resposta(err.response.data.status);
                     });
-                }).catch(err => {
-                    console.log(err);
+                }).catch((err) => {
                     this.isLoading = false;
-                    alert("Falha ao Deletar.");
+                    if(err.response.status === 404)
+                        this.mostra_modal_resposta("Falha ao realizar operação. Tente novamente mais tarde.");
+                    else
+                        this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         }
