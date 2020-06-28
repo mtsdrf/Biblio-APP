@@ -70,6 +70,21 @@
                 </button>
             </div>
         </modal>
+        <modal name="modal-resposta" width="400px" height="200px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -88,7 +103,8 @@
         data () {
             return {
                 emprestimos: [],
-                isLoading: false
+                isLoading: false,
+                mensagem_resposta: ''
             }
         },
         created() {
@@ -106,9 +122,8 @@
                 this.emprestimos = res.data;
                 this.isLoading = false;
             }).catch(err => {
-                console.log(err);
+                this.mostra_modal_resposta(err.response.data.status);
                 this.isLoading = false;
-                alert("Falha ao realizar a busca de empréstimos.");
             });
         },
         methods: {
@@ -118,6 +133,11 @@
             
             mostra_modal_excluir: function (modal_nome, emprestimo){
                 this.$modal.show(modal_nome, { emprestimo });
+            },
+
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
             },
 
             set_id_emprestimo: function(event) {
@@ -146,16 +166,14 @@
                         });
                         this.emprestimos = res.data;
                         this.isLoading = false;
-                        alert("Deletado com sucesso.");
-                    }).catch(err => {
-                        console.log(err);
+                        this.mostra_modal_resposta("Deletado com sucesso.");
+                    }).catch((err) => {
                         this.isLoading = false;
-                        alert("Deletado com sucesso, porém houve uma falha na busca dos dados atualizados.");
+                        this.mostra_modal_resposta(err.response.data.status);
                     });
-                }).catch(err => {
-                    console.log(err);
+                }).catch((err) => {
                     this.isLoading = false;
-                    alert("Falha ao Deletar.");
+                    this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         }

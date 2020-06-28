@@ -36,6 +36,21 @@
                 </div>
             </div>
         </layout>
+        <modal name="modal-resposta" width="400px" height="200px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -56,7 +71,8 @@
             return {
                 estantes: [],
                 formdata:{ numero: '', id_estante: '' },
-                isLoading: false
+                isLoading: false,
+                mensagem_resposta: ''
             }
         },
         created() {
@@ -67,8 +83,8 @@
                 }
             }).then((res) => {
                 this.estantes = res.data;
-            }).catch(() => {
-                alert("Falha ao realizar a busca de estantes.");
+            }).catch((err) => {
+                this.mostra_modal_resposta(err.response.data.status);
             });
             if(this.$route.params.id !== undefined && this.$route.params.id !== null){
                 this.isLoading = true;
@@ -83,13 +99,17 @@
                     this.isLoading = false;
                 })
                 .catch((err) => {
-                    console.log(err);
                     this.isLoading = false;
-                    alert("Falha ao realizar a busca de prateleiras.");
+                    this.mostra_modal_resposta(err.response.data.status);
                 });
             }
         },
         methods: {
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
+            },
+            
             adicionar: function () {
                 this.isLoading = true;
                 if(this.$route.params.id === undefined || this.$route.params.id === null){
@@ -98,15 +118,13 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then((res) => {
+                    }).then(() => {
                         this.isLoading = false;
-                        console.log(res);
-                        alert("Cadastro realizado com sucesso.");
+                        this.mostra_modal_resposta("Cadastro realizado com sucesso.");
                         this.$router.replace('/prateleiras');
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Falha ao realizar o cadastro.");
+                        this.mostra_modal_resposta(err.response.data.status);
                     });
                 } else if (this.$route.params.id !== undefined && this.$route.params.id !== null) {
                     axios.put('http://localhost:8000/api/prateleira/' + this.$route.params.id, this.formdata, {
@@ -114,15 +132,13 @@
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
-                    }).then((res) => {
+                    }).then(() => {
                         this.isLoading = false;
-                        console.log(res);
-                        alert("Alteração realizada com sucesso.");
+                        this.mostra_modal_resposta("Alteração realizada com sucesso.");
                         this.$router.replace('/prateleiras');
                     }).catch((err) => {
                         this.isLoading = false;
-                        console.log(err);
-                        alert("Falha ao realizar a alteração dos dados.");
+                        this.mostra_modal_resposta(err.response.data.status);
                     });
                 }
             }

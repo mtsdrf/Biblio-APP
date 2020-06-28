@@ -35,6 +35,21 @@
                 </div>
             </div>
         </layout>
+        <modal name="modal-resposta" width="400px" height="200px">
+            <div style="text-align:center">
+                <h3>Atenção!</h3>
+            </div>
+            <hr>
+            <div style="margin-left: 15px">
+                <p>{{ mensagem_resposta }}</p>
+            </div>
+            <hr>
+            <div style="text-align: right; margin-right: 15px">
+                <button @click="$modal.hide('modal-resposta')" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                    Fechar
+                </button>
+            </div>
+        </modal>
         <Loader :is-visible="isLoading"></Loader>
     </div>
 </template>
@@ -53,6 +68,7 @@
         data() {
             return {
                 isLoading: false,
+                mensagem_resposta: '',
                 LivrosAtasados: 0,
                 LivrosEmprestados: 0,
                 EmprestadosXDisponiveis: {
@@ -139,6 +155,12 @@
                 }
             }
         },
+        methods: {
+            mostra_modal_resposta: function (mensagem){
+                this.mensagem_resposta = mensagem;
+                this.$modal.show("modal-resposta");
+            },
+        },
         created() {
             this.isLoading = true;
             axios.get("http://localhost:8000/api/home", {
@@ -166,9 +188,8 @@
 
                 this.isLoading = false;
             }).catch(err => {
-                console.log(err);
                 this.isLoading = false;
-                alert("Falha ao realizar a busca de empréstimos.");
+                this.mostra_modal_resposta(err.response.data.status);
             });
         }
     }
