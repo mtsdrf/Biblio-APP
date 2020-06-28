@@ -11,44 +11,44 @@
                         </div>
                         <div class="form-group row">
                             <form @submit.prevent="adicionar">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="nome" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                     <div class="controls">
                                         <input type="text" id="nome" name="nome" class="form-control" v-model="formdata.nome" autofocus required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="autor" style="margin-bottom: 0px; margin-top: 10px;">Autor</label>
                                     <div class="controls">
                                         <input type="text" id="autor" name="autor" class="form-control" v-model="formdata.autor" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="edicao" style="margin-bottom: 0px; margin-top: 10px;">Edição</label>
                                     <div class="controls">
                                         <input type="number" id="edicao" name="edicao" class="form-control" v-model="formdata.edicao" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="local" style="margin-bottom: 0px; margin-top: 10px;">Local</label>
                                     <div class="controls">
                                         <input type="text" id="local" name="local" class="form-control" v-model="formdata.local" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="editora" style="margin-bottom: 0px; margin-top: 10px;">Editora</label>
                                     <div class="controls">
                                         <input type="text" id="editora" name="editora" class="form-control" v-model="formdata.editora" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="ano" style="margin-bottom: 0px; margin-top: 10px;">Ano</label>
                                     <div class="controls">
                                         <input type="number" id="ano" name="ano" class="form-control" v-model="formdata.ano" required>
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <h4 style="margin-bottom: 0px; margin-top: 10px;">Localização</h4>
                                     <br>
                                     <label for="corredor" style="margin-bottom: 0px; margin-top: 10px;">Corredor</label>

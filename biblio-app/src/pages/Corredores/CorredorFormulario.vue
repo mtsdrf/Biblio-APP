@@ -11,7 +11,7 @@
                         </div>
                         <div class="form-group row">
                             <form @submit.prevent="adicionar">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="letra" style="margin-bottom: 0px; margin-top: 10px;">Letra</label>
                                     <div class="controls">
                                         <input type="text" id="letra" name="letra" class="form-control" v-model="formdata.letra" autofocus required>

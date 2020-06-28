@@ -11,43 +11,43 @@
                         </div>
                         <div class="form-group row">
                             <form @submit.prevent="adicionar">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="name" style="margin-bottom: 0px; margin-top: 10px;">Nome</label>
                                     <div class="controls">
                                         <input type="text" id="name" name="name" class="form-control" v-model="formdata.name" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <label for="cpf" style="margin-bottom: 0px; margin-top: 10px;">CPF</label>
                                     <div class="controls">
                                         <input type="text" id="cpf" name="cpf" class="form-control" v-model="formdata.cpf" v-mask="['###.###.###-##']" required minlength="14" maxlength="14">
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="rg">RG</label>
                                     <div class="controls">
                                         <input type="text" id="rg" name="rg" class="form-control" v-model="formdata.rg" required minlength="9" maxlength="9">
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="data_nascimento">Data de Nascimento</label>
                                     <div class="controls">
                                         <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" v-model="formdata.data_nascimento" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="endereco">Endereço</label>
                                     <div class="controls">
                                         <input type="text" id="endereco" name="endereco" class="form-control" v-model="formdata.endereco" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="email">Email</label>
                                     <div class="controls">
                                         <input type="email" id="email" name="email" class="form-control" v-model="formdata.email" required>
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="margin-bottom: 0px; margin-top: 10px;">
+                                <div class="col-md-12" style="margin-bottom: 0px; margin-top: 10px;">
                                     <label for="password">Senha</label>
                                     <div class="controls">
                                         <input type="password" id="password" name="password" class="form-control" v-model="formdata.password" required>
