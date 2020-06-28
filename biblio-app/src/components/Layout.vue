@@ -13,34 +13,41 @@
                     <h5 class="title" style="background-color: #00962ed4; color: white; text-align: center;">Bem vindo {{ user }}!</h5>
                     <h5 class="title">Navegação</h5>
                     <ul class="menu js__accordion">
-                        <li>
-                            <router-link to='/clientes'><a class="waves-effect"><i class="menu-icon ti-user"></i><span>Clientes</span></a></router-link>
+
+                        <li :class="[currentPage.includes('clientes') ? activeClass : '', 'nav-item']">
+                            <router-link to='/clientes'><a class="waves-effect " ><i class="menu-icon ti-user"></i><span>Clientes</span></a></router-link>
                         </li>
-                        <li>
-                            <router-link to='/livros'><a class="waves-effect"><i class="menu-icon ti-layers-alt"></i><span>Livros</span></a></router-link>
+                        <li :class="[currentPage.includes('livros') ? activeClass : '', 'nav-item']">
+                            <router-link to='/livros'><a class="waves-effect  "><i class="menu-icon  ti-book"></i><span>Livros</span></a></router-link>
                         </li>
-                        <li>
-                            <router-link to='/usuarios'><a class="waves-effect"><i class="menu-icon ti-user"></i><span>Usuários</span></a></router-link>
+                        <li :class="[currentPage.includes('usuarios') ? activeClass : '', 'nav-item']">
+                            <router-link to='/usuarios'><a class="waves-effect "><i class="menu-icon ti-bookmark"></i><span>Usuários</span></a></router-link>
                         </li>
-                        <li>
-                            <router-link to='/emprestimos'><a class="waves-effect"><i class="menu-icon ti-book"></i><span>Empréstimos</span></a></router-link>
+                        <li :class="[currentPage.includes('emprestimos') ? activeClass : '', 'nav-item']">
+                            <router-link to='/emprestimos'><a class="waves-effect"><i class="menu-icon ti-agenda"></i><span>Empréstimos</span></a></router-link>
                         </li>
                         <li>
                             <!--a class="waves-effect parent-item js__control"><i class="menu-icon ti-flag"></i><span>Localização</span><span class="menu-arrow fa fa-angle-down"></span></a>
                             <ul class="sub-menu js__content"-->
-                                <li>
-                                    <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon ti-book"></i><span>Corredores</span></a></router-link>
+                                <li :class="[currentPage.includes('corredores') ? activeClass : '', 'nav-item']">
+                                    <router-link to='/corredores'><a class="waves-effect"><i class="menu-icon  ti-layers-alt"></i><span>Corredores</span></a></router-link>
                                 </li>
-                                <li>
-                                    <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-map"></i><span>Estantes</span></a></router-link>
+                                <li :class="[currentPage.includes('estantes') ? activeClass : '', 'nav-item']">
+                                    <router-link to='/estantes'><a class="waves-effect"><i class="menu-icon ti-direction-alt"></i><span>Estantes</span></a></router-link>
                                 </li>
-                                <li>
-                                    <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-book"></i><span>Prateleiras</span></a></router-link>
+                                <li :class="[currentPage.includes('prateleiras') ? activeClass : '', 'nav-item']"> 
+                                    <router-link to='/prateleiras'><a class="waves-effect"><i class="menu-icon ti-view-list"></i><span>Prateleiras</span></a></router-link>
                                 </li>
                             <!--/ul>
                         </li-->
                     </ul>
+
                 </div>
+                <footer>
+                    <div class="frm-footer text-center " style="margin-top:75%">Cocão Sistemas ©
+                        {{ new Date().getFullYear() }}
+                    </div>
+                </footer>
             </div>
         </div>
 
@@ -64,11 +71,7 @@
 
                 <slot></slot>
 
-                <footer class="footer">
-                    <div class="frm-footer text-center">Cocão Sistemas ©
-                        {{ new Date().getFullYear() }}
-                    </div>
-                </footer>
+
             </div>
         </div>
     </fragment>
@@ -84,9 +87,16 @@ Vue.use(Plugin);
 export default {
     name: 'Layout',
     data() {
+
         return {
-            user: 'Usuário'
+            user: 'Usuário',
+            activeClass: 'active',     
         }
+    },
+    computed:{
+        currentPage(){
+            return this.$route.path;
+        },
     },
     methods: {
         logout() {
@@ -97,8 +107,12 @@ export default {
     created() {
         var tokenDecoded = VueJwtDecode.decode(sessionStorage.getItem("token"));
         tokenDecoded === null || tokenDecoded === undefined ? this.user = "Usuário" : this.user = tokenDecoded.name;
-    }
+    },
+  
+    
 }
+       
+
 
 </script>
 
@@ -109,5 +123,14 @@ export default {
     @import '../assets/css/nprogress.css';
     @import '../assets/css/style.min.css';
     @import '../assets/css/fonts/themify/themify-icons.css';
+
+.active{
+    opacity:1;
+    margin: 12px;
+    transition: all 0.25s;
+
+
+}
+
 
 </style>

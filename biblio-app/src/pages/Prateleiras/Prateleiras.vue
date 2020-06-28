@@ -18,14 +18,12 @@
                                 <thead>
                                     <tr>
                                         <th>Número</th>
-                                        <th>Estante</th>      
                                         <th>Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-sgbds">
                                     <tr v-for="prateleira in prateleiras" :key="prateleira.id">
                                         <td>{{ prateleira.numero }}</td>
-                                        <td>{{ prateleira.id_estante }}</td>
                                         <td style="text-align: center">
                                             <button v-on:click="editar(prateleira.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
@@ -36,7 +34,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!prateleiras.length" style="text-align:center">
-                                        <td colspan="6">Sem registros</td>
+                                        <td colspan="2">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>

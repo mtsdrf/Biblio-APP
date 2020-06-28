@@ -34,7 +34,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!corredores.length" style="text-align:center">
-                                        <td colspan="6">Sem registros</td>
+                                        <td colspan="2">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>

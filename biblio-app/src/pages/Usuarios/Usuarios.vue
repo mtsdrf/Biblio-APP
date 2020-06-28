@@ -21,6 +21,7 @@
                                         <th>Email</th>
                                         <th>CPF</th>
                                         <th>RG</th>
+                                        <th>Endereço</th>
                                         <th>Opções</th>
                                     </tr>
                                 </thead>
@@ -30,6 +31,7 @@
                                         <td>{{ usuario.email }}</td>
                                         <td>{{ usuario.cpf }}</td>
                                         <td>{{ usuario.rg }}</td>
+                                        <td>{{ usuario.endereco }}</td>
                                         <td style="text-align: center">
                                             <button v-on:click="editar(usuario.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
@@ -40,7 +42,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!usuarios.length" style="text-align:center">
-                                        <td colspan="5">Sem registros</td>
+                                        <td colspan="6">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>

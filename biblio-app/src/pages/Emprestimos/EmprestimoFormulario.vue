@@ -107,7 +107,7 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then((res) => {
-                this.livros = res.data;
+                this.livros = res.data.livros_disponiveis;
                 this.isLoading = false;
             }).catch((err) => {
                 this.mostra_modal_resposta(err.response.data.status);

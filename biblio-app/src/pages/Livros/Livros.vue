@@ -17,19 +17,35 @@
                                 style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>Código</th>
                                         <th>Nome</th>
                                         <th>Editora</th>
-                                        <th>Ano</th>
+                                        <th>Edição</th>
+                                        <th>Local</th>
+                                        <th>Ano</th> 
                                         <th>Autor</th>
+                                        <th>Localização</th>
+                                        <th>Disponibilidade</th>
                                         <th>Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-sgbds">
                                     <tr v-for="livro in livros" :key="livro.id">
+                                        <td>{{ livro.id }}</td>
                                         <td>{{ livro.nome }}</td>
                                         <td>{{ livro.editora }}</td>
+                                        <td>{{ livro.edicao }}</td>
+                                        <td>{{ livro.local }}</td>
                                         <td>{{ livro.ano }}</td>
                                         <td>{{ livro.autor }}</td>
+                                        <td>{{ livro.corredor + "-" + livro.estante + "." + livro.prateleira}}</td>
+                                        <td v-if="livro.emprestado === 1">
+                                            <button type="button" class="btn btn-danger btn-block disabled">Emprestado</button>
+                                        </td>
+                                        <td v-if="livro.emprestado === 0">
+                                            <button type="button" class="btn btn-success btn-block disbled">Disponível</button>
+                                        </td>
+
                                         <td style="text-align: center">
                                             <button v-on:click="editar(livro.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                                 <i class="ico ti-pencil-alt"></i>
@@ -40,7 +56,7 @@
                                         </td>
                                     </tr>
                                     <tr v-if="!livros.length" style="text-align:center">
-                                        <td colspan="5">Sem registros</td>
+                                        <td colspan="10">Sem registros</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -113,7 +129,8 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                this.livros = res.data;
+                console.log(res);
+                this.livros = res.data.livros;
                 this.isLoading = false;
             }).catch(err => {
                 this.mostra_modal_resposta(err.response.data.status);
