@@ -5,7 +5,7 @@
                 <div class="col-lg-12 col-xs-12">
                     <div class="box-content" style="padding: 15px">
                         <div class="row" style="margin-bottom: 5px;">
-                            <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <h4>Formulário de Prateleiras</h4>
                             </div>
                         </div>
