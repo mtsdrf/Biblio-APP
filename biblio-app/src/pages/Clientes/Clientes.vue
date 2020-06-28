@@ -160,7 +160,6 @@
                     opcoes: '<button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px"><i class="ico ti-pencil-alt"></i></button><button v-on:click="mostra_modal_excluir("modal-excluir", cliente)" type="button" class="btn btn-danger waves-effect waves-light"><i class="ico ti-trash"></i></button>'
                 }],
                 clientes: [],
-                isLoading: false,
                 mensagem_resposta: ''
             }
         },

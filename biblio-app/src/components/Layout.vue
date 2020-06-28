@@ -39,7 +39,7 @@
                     </ul>
                 </div>
                 <footer>
-                    <div class="frm-footer text-center " style="margin-top:50%">Cocão Sistemas ©
+                    <div class="frm-footer text-center">Cocão Sistemas ©
                         {{ new Date().getFullYear() }}
                     </div>
                 </footer>
@@ -124,6 +124,12 @@ export default {
 
 .navigation .menu>li.active>a{
     background: "#f5f5f5"!important;
+}
+
+.frm-footer {
+    position: fixed;
+    left: 4.5rem;
+    bottom: 10px;
 }
 
 @media only screen and (max-width: 600px) {
