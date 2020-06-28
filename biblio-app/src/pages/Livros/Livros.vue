@@ -12,52 +12,38 @@
                                 <router-link to='/livro-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                             </div>
                         </div>
-                        <div class="table-responsive" data-pattern="priority-columns">
-                            <table id="example" class="table table-small-font table-bordered table-striped"
-                                style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>Editora</th>
-                                        <th>Edição</th>
-                                        <th>Ano</th> 
-                                        <th>Autor</th>
-                                        <th>Localização</th>
-                                        <th>Disponibilidade</th>
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-sgbds">
-                                    <tr v-for="livro in livros" :key="livro.id">
-                                        <td>{{ livro.id }}</td>
-                                        <td>{{ livro.nome }}</td>
-                                        <td>{{ livro.editora }}</td>
-                                        <td>{{ livro.edicao }}</td>
-                                        <td>{{ livro.ano }}</td>
-                                        <td>{{ livro.autor }}</td>
-                                        <td>{{ livro.corredor + "-" + livro.estante + "." + livro.prateleira}}</td>
-                                        <td v-if="livro.emprestado === 1">
-                                            <button type="button" class="btn btn-danger btn-block"><i class="menu-icon ti-close"></i></button>
-                                        </td>
-                                        <td v-if="livro.emprestado === 0">
-                                            <button type="button" class="btn btn-success btn-block disbled"><i class="menu-icon ti-check-box"></i></button>
-                                        </td>
-
-                                        <td style="text-align: center">
-                                            <button v-on:click="editar(livro.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
-                                                <i class="ico ti-pencil-alt"></i>
-                                            </button>
-                                            <button v-on:click="mostra_modal_excluir('modal-excluir', livro)" type="button" class="btn btn-danger waves-effect waves-light">
-                                                <i class="ico ti-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="!livros.length" style="text-align:center">
-                                        <td colspan="10">Sem registros</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="table-responsive text-center">
+                            <vue-good-table
+                                :columns="columns"
+                                :rows="rows"
+                                :fixed-header="true"
+                                :search-options="{
+                                  placeholder: 'Pesquisar...',
+                                  enabled: true
+                                }">
+                                <template slot="table-row" slot-scope="props">
+                                    <span v-if="props.column.field == 'emprestado' && props.row.emprestado === 1">
+                                        <button type="button" class="btn btn-danger btn-block"><i class="menu-icon ti-close"></i></button>
+                                    </span>
+                                    <span v-else-if="props.column.field == 'emprestado' && props.row.emprestado === 0">
+                                        <button type="button" class="btn btn-success btn-block disbled"><i class="menu-icon ti-check-box"></i></button>
+                                    </span>
+                                    <span v-else>
+                                        {{props.formattedRow[props.column.field]}}
+                                    </span>
+                                    <span v-if="props.column.field == 'opcoes'">
+                                      <button v-on:click="editar(props.row.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                            <i class="ico ti-pencil-alt"></i>
+                                        </button>
+                                        <button v-on:click="mostra_modal_excluir('modal-excluir', props.row)" type="button" class="btn btn-danger waves-effect waves-light">
+                                            <i class="ico ti-trash"></i>
+                                        </button>
+                                    </span>
+                                </template>
+                                <div slot="emptystate">
+                                  Sem registros.
+                                </div>
+                            </vue-good-table>
                         </div>
                     </div>
                 </div>
@@ -114,7 +100,44 @@
         },
         data () {
             return {
-                livros: [],
+                columns: [
+                    {
+                        label: 'Nome', 
+                        field: 'nome'
+                    },
+                    {
+                        label: 'Editora',
+                        field: 'editora'
+                    },
+                    {
+                        label: 'Edição', 
+                        field: 'edicao'
+                    },
+                    {
+                        label: 'Ano', 
+                        field: 'ano'
+                    },
+                    {
+                        label: 'Autor', 
+                        field: 'autor'
+                    },
+                    {
+                        label: 'Localização', 
+                        field: (ele) => { return `${ele.corredor}-${ele.prateleira}.${ele.prateleira}`}
+                    },
+                    {
+                        label: 'Disponibilidade', 
+                        field: 'emprestado',
+                        html: true
+                    },
+                    {
+                        label: 'Opções',
+                        field: 'opcoes',
+                        sortable: false,
+                        html: true,
+                    }
+                ],
+                rows: [],
                 isLoading: false,
                 mensagem_resposta: ''
             }
@@ -127,7 +150,7 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(res => {
-                this.livros = res.data.livros;
+                this.rows = res.data.livros;
                 this.isLoading = false;
             }).catch(err => {
                 this.mostra_modal_resposta(err.response.data.status);
@@ -168,7 +191,7 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then(res => {
-                        this.livros = res.data;
+                        this.rows = res.data.livros;
                         this.isLoading = false;
                         this.mostra_modal_resposta("Deletado com sucesso.");
                     }).catch((err) => {

@@ -18,14 +18,15 @@
                                 :rows="rows"
                                 :fixed-header="true"
                                 :search-options="{
+                                  placeholder: 'Pesquisar...',
                                   enabled: true
                                 }">
                                 <template slot="table-row" slot-scope="props">
                                     <span v-if="props.column.field == 'opcoes'">
-                                      <button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                      <button v-on:click="editar(props.row.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
                                             <i class="ico ti-pencil-alt"></i>
                                         </button>
-                                        <button v-on:click="mostra_modal_excluir('modal-excluir', cliente)" type="button" class="btn btn-danger waves-effect waves-light">
+                                        <button v-on:click="mostra_modal_excluir('modal-excluir', props.row)" type="button" class="btn btn-danger waves-effect waves-light">
                                             <i class="ico ti-trash"></i>
                                         </button>
                                     </span>
@@ -35,43 +36,6 @@
                                 </div>
                             </vue-good-table>
                         </div>
-
-
-                        <!--<div class="table-responsive" data-pattern="priority-columns">
-                            <table id="example" class="table table-small-font table-bordered table-striped"
-                                style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Telefone</th>
-                                        <th>CPF</th>
-                                        <th>E-mail</th>
-                                        <th>Endereço</th>        
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-sgbds">
-                                    <tr v-for="cliente in clientes" :key="cliente.id">
-                                        <td>{{ cliente.nome }}</td>
-                                        <td>{{ cliente.telefone }}</td>
-                                        <td>{{ cliente.cpf }}</td>
-                                        <td>{{ cliente.email }}</td>
-                                        <td>{{ cliente.endereco }}</td>
-                                        <td style="text-align: center">
-                                            <button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
-                                                <i class="ico ti-pencil-alt"></i>
-                                            </button>
-                                            <button v-on:click="mostra_modal_excluir('modal-excluir', cliente)" type="button" class="btn btn-danger waves-effect waves-light">
-                                                <i class="ico ti-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="!clientes.length" style="text-align:center">
-                                        <td colspan="6">Sem registros</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -127,7 +91,6 @@
         },
         data () {
             return {
-                isLoading: false,
                 columns: [
                     {
                         label: 'Nome', 
@@ -156,10 +119,7 @@
                         html: true,
                     }
                 ],
-                rows: [{
-                    opcoes: '<button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px"><i class="ico ti-pencil-alt"></i></button><button v-on:click="mostra_modal_excluir("modal-excluir", cliente)" type="button" class="btn btn-danger waves-effect waves-light"><i class="ico ti-trash"></i></button>'
-                }],
-                clientes: [],
+                rows: [],
                 isLoading: false,
                 mensagem_resposta: ''
             }
@@ -172,7 +132,7 @@
                     'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then((res) => {
-                this.clientes = res.data;
+                this.rows = res.data;
                 this.isLoading = false;
             }).catch((err) => {
                 this.isLoading = false;
@@ -216,7 +176,7 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         }
                     }).then((res) => {
-                        this.clientes = res.data;
+                        this.rows = res.data;
                         this.isLoading = false;
                         this.mostra_modal_resposta("Deletado com sucesso.");
                     }).catch((err) => {
