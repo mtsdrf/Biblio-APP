@@ -12,7 +12,32 @@
                                 <router-link to='/cliente-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                             </div>
                         </div>
-                        <div class="table-responsive" data-pattern="priority-columns">
+                        <div class="table-responsive text-center">
+                            <vue-good-table
+                                :columns="columns"
+                                :rows="rows"
+                                :fixed-header="true"
+                                :search-options="{
+                                  enabled: true
+                                }">
+                                <template slot="table-row" slot-scope="props">
+                                    <span v-if="props.column.field == 'opcoes'">
+                                      <button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                            <i class="ico ti-pencil-alt"></i>
+                                        </button>
+                                        <button v-on:click="mostra_modal_excluir('modal-excluir', cliente)" type="button" class="btn btn-danger waves-effect waves-light">
+                                            <i class="ico ti-trash"></i>
+                                        </button>
+                                    </span>
+                                </template>
+                                <div slot="emptystate">
+                                  Sem registros.
+                                </div>
+                            </vue-good-table>
+                        </div>
+
+
+                        <!--<div class="table-responsive" data-pattern="priority-columns">
                             <table id="example" class="table table-small-font table-bordered table-striped"
                                 style="width:100%">
                                 <thead>
@@ -46,7 +71,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -87,8 +112,38 @@
         },
         data () {
             return {
-                clientes: [],
-                isLoading: false
+                isLoading: false,
+                columns: [
+                    {
+                        label: 'Nome', 
+                        field: 'nome'
+                    },
+                    {
+                        label: 'Telefone',
+                        field: 'telefone'
+                    },
+                    {
+                        label: 'CPF', 
+                        field: 'cpf'
+                    },
+                    {
+                        label: 'E-mail', 
+                        field: 'email'
+                    },
+                    {
+                        label: 'Endereço', 
+                        field: 'endereco'
+                    },
+                    {
+                        label: 'Opções',
+                        field: 'opcoes',
+                        sortable: false,
+                        html: true,
+                    }
+                ],
+                rows: [{
+                    opcoes: '<button v-on:click="editar(cliente.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px"><i class="ico ti-pencil-alt"></i></button><button v-on:click="mostra_modal_excluir("modal-excluir", cliente)" type="button" class="btn btn-danger waves-effect waves-light"><i class="ico ti-trash"></i></button>'
+                }]
             }
         },
         created() {
@@ -100,7 +155,7 @@
                 }
             }).then((res) => {
                 console.log(res); 
-                this.clientes = res.data;
+                this.rows = res.data;
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);

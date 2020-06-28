@@ -41,13 +41,12 @@
                             <!--/ul>
                         </li-->
                     </ul>
-
                 </div>
-                <footer>
-                    <div class="frm-footer text-center " style="margin-top:75%">Cocão Sistemas ©
-                        {{ new Date().getFullYear() }}
-                    </div>
-                </footer>
+                <div>
+                    <footer class="text-center" id="footer">
+                        Cocão Sistemas ©{{ new Date().getFullYear() }}
+                    </footer>
+                </div>
             </div>
         </div>
 
@@ -128,9 +127,13 @@ export default {
     opacity:1;
     margin: 12px;
     transition: all 0.25s;
-
-
 }
-
+#footer{
+    width: 100%;
+    height: 5%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 
 </style>

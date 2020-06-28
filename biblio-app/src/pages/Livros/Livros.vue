@@ -40,10 +40,10 @@
                                         <td>{{ livro.autor }}</td>
                                         <td>{{ livro.corredor + "-" + livro.estante + "." + livro.prateleira}}</td>
                                         <td v-if="livro.emprestado === 1">
-                                            <button type="button" class="btn btn-danger btn-block disabled">Emprestado</button>
+                                            <label for="disponibilidade" class="btn bg-danger btn-block text-white">Emprestado</label>
                                         </td>
                                         <td v-if="livro.emprestado === 0">
-                                            <button type="button" class="btn btn-success btn-block disbled">Disponível</button>
+                                            <label for="disponibilidade" class="btn bg-success btn-block text-white">Disponível</label>
                                         </td>
 
                                         <td style="text-align: center">
