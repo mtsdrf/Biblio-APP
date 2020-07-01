@@ -29,8 +29,8 @@
                         </div>
                     </div>-->
                     <button type="submit" class="frm-submit">Entrar<i class="fa fa-arrow-circle-right"></i></button>
-                    
-                    <div class="frm-footer text-center">Cocão Sistemas ©
+                    <hr/>
+                    <div class="text-center">Cocão Sistemas ©
                         {{ new Date().getFullYear() }}
                     </div>
                 </div>
