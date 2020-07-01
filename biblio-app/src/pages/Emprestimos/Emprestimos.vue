@@ -12,40 +12,29 @@
                                 <router-link to='/emprestimo-formulario'><button type="button" class="btn btn-primary waves-effect waves-light">Adicionar</button></router-link>
                             </div>
                         </div>
-                        <div class="table-responsive" data-pattern="priority-columns">
-                            <table id="example" class="table table-small-font table-bordered table-striped"
-                                style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Empréstimo</th>
-                                        <th>Devolução</th>
-                                        <th>Cliente</th>
-                                        <th>Email Cliente</th>
-                                        <th>Livro</th>
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="emprestimo in emprestimos" :key="emprestimo.id">
-                                        <td>{{ emprestimo.dia_emprestimo }}</td>
-                                        <td>{{ emprestimo.dia_devolucao }}</td>
-                                        <td>{{ emprestimo.cliente_nome }}</td>
-                                        <td>{{ emprestimo.cliente_email }}</td>
-                                        <td>{{ emprestimo.livro_nome }}</td>
-                                        <td style="text-align: center">
-                                            <button v-on:click="editar(emprestimo.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
-                                                <i class="ico ti-pencil-alt"></i>
-                                            </button>
-                                            <button v-on:click="mostra_modal_excluir('modal-excluir', emprestimo)" type="button" class="btn btn-danger waves-effect waves-light">
-                                                <i class="ico ti-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="!emprestimos.length" style="text-align:center">
-                                        <td colspan="6">Sem registros</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="table-responsive text-center">
+                            <vue-good-table
+                                :columns="columns"
+                                :rows="rows"
+                                :fixed-header="true"
+                                :search-options="{
+                                    placeholder: 'Pesquisar...',
+                                    enabled: true
+                                }">
+                                <template slot="table-row" slot-scope="props">
+                                    <span v-if="props.column.field == 'opcoes'">
+                                        <button v-on:click="editar(props.row.id)" type="button" class="btn btn-warning waves-effect waves-light" style="margin-right: 15px">
+                                            <i class="ico ti-pencil-alt"></i>
+                                        </button>
+                                        <button v-on:click="mostra_modal_excluir('modal-excluir', props.row)" type="button" class="btn btn-danger waves-effect waves-light">
+                                            <i class="ico ti-trash"></i>
+                                        </button>
+                                    </span>
+                                </template>
+                                <div slot="emptystate">
+                                    Sem registros.
+                                </div>
+                            </vue-good-table>
                         </div>
                     </div>
                 </div>
@@ -102,7 +91,35 @@
         },
         data () {
             return {
-                emprestimos: [],
+                columns: [
+                    {
+                        label: 'Emprestimo', 
+                        field: 'dia_emprestimo'
+                    },
+                    {
+                        label: 'Devolução',
+                        field: 'dia_devolucao'
+                    },
+                    {
+                        label: 'Cliente', 
+                        field: 'cliente_nome'
+                    },
+                    {
+                        label: 'E-mail', 
+                        field: 'cliente_email'
+                    },
+                    {
+                        label: 'Livro', 
+                        field: 'livro_nome'
+                    },
+                    {
+                        label: 'Opções',
+                        field: 'opcoes',
+                        sortable: false,
+                        html: true,
+                    }
+                ],
+                rows: [],
                 isLoading: false,
                 mensagem_resposta: ''
             }
@@ -119,7 +136,7 @@
                     valor.dia_emprestimo = valor.dia_emprestimo.split('-')[2] + "/" + valor.dia_emprestimo.split('-')[1] + "/" + valor.dia_emprestimo.split('-')[0];
                     valor.dia_devolucao  = valor.dia_devolucao.split('-')[2] + "/" + valor.dia_devolucao.split('-')[1] + "/" + valor.dia_devolucao.split('-')[0];
                 });
-                this.emprestimos = res.data;
+                this.rows = res.data;
                 this.isLoading = false;
             }).catch(err => {
                 this.isLoading = false;
@@ -167,7 +184,7 @@
                             valor.dia_emprestimo = valor.dia_emprestimo.split('-')[2] + "/" + valor.dia_emprestimo.split('-')[1] + "/" + valor.dia_emprestimo.split('-')[0];
                             valor.dia_devolucao  = valor.dia_devolucao.split('-')[2] + "/" + valor.dia_devolucao.split('-')[1] + "/" + valor.dia_devolucao.split('-')[0];
                         });
-                        this.emprestimos = res.data;
+                        this.rows = res.data;
                         this.isLoading = false;
                         this.mostra_modal_resposta("Deletado com sucesso.");
                     }).catch((err) => {
