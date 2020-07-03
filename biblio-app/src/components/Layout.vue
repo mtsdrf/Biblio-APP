@@ -132,6 +132,10 @@ export default {
     bottom: 10px;
 }
 
+table.vgt-table{
+    font-size: 12px!important;
+}
+
 @media only screen and (max-width: 600px) {
     .frm-footer {
         margin-top: 80%!important;
